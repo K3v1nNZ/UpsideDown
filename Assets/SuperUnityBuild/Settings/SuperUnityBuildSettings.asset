@@ -1,0 +1,223 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-4546927203325772067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2786f6b2301a94f4288672ff5305244c, type: 3}
+  m_Name: Windows
+  m_EditorClassIdentifier: 
+  enabled: 1
+  distributionList:
+    distributions: []
+  targets:
+  - type: 19
+    name: Player
+    enabled: 1
+    binaryNameFormat: '{0}.exe'
+    subtarget: 0
+  - type: 19
+    name: Dedicated Server
+    enabled: 0
+    binaryNameFormat: '{0}.exe'
+    subtarget: 1
+  variants:
+  - variantName: Architecture
+    selectedIndex: 0
+    values:
+    - Intel 64-bit
+    - Intel 32-bit
+    isFlag: 0
+  - variantName: Build Output
+    selectedIndex: 0
+    values:
+    - App
+    - Visual Studio Solution
+    isFlag: 0
+  scriptingBackends:
+  - scriptingImplementation: 0
+    name: Mono
+    enabled: 0
+  - scriptingImplementation: 1
+    name: IL2CPP
+    enabled: 1
+  platformName: Windows
+  targetGroup: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d5886119a5c7b34d8872ab527ca3e1b, type: 3}
+  m_Name: SuperUnityBuildSettings
+  m_EditorClassIdentifier: 
+  _basicSettings:
+    baseBuildFolder: Builds
+    buildPath: $VERSION/$RELEASE_TYPE/$PLATFORM
+    openFolderPostBuild: 1
+    constantsFileLocation: Assets\SuperUnityBuild
+  _productParameters:
+    buildCounter: 0
+    buildVersion: 0.0.1.1
+    versionTemplate: 0.0.1.1
+    autoGenerate: 0
+    syncWithPlayerSettings: 1
+  _releaseTypeList:
+    releaseTypes:
+    - typeName: Debug
+      bundleIdentifier: com.K3v1nNZ.UpsideDown
+      companyName: K3v1nNZ
+      productName: UpsideDown
+      syncAppNameWithProduct: 1
+      appBuildName: UpsideDown
+      buildOptions: 1
+      customDefines: 
+      sceneList:
+        releaseScenes:
+        - fileGUID: 9fc0d4010bbf28b4594072e72b8655ab
+          sceneActive: 1
+    - typeName: Shipping
+      bundleIdentifier: com.K3v1nNZ.UpsideDown
+      companyName: K3v1nNZ
+      productName: UpsideDown
+      syncAppNameWithProduct: 1
+      appBuildName: UpsideDown
+      buildOptions: 1
+      customDefines: 
+      sceneList:
+        releaseScenes:
+        - fileGUID: 9fc0d4010bbf28b4594072e72b8655ab
+          sceneActive: 1
+  _platformList:
+    platforms:
+    - {fileID: -4546927203325772067}
+    - {fileID: 1474986710601063885}
+  _projectConfigurations:
+    configSet:
+      _Buckets: 0d000000ffffffffffffffff03000000ffffffffffffffff070000000a000000ffffffffffffffff0b0000000800000002000000ffffffffffffffff0c000000ffffffff
+      _HashCodes: 7056ea7c5b74c82f41751441939d654ad09ff0105c441e260d4e993437e72a23902e432be2c99f0712cde024ab2d3067bf5fa737e030f65e000000000000000000000000
+      _Next: ffffffff0000000001000000ffffffffffffffffffffffff05000000ffffffff04000000ffffffff06000000ffffffff09000000ffffffff000000000000000000000000
+      _Count: 14
+      _Version: 14
+      _FreeList: -1
+      _FreeCount: 0
+      _Keys:
+      - Debug/Windows/Player (Intel 64-bit,App)/IL2CPP
+      - Debug/Windows/Player (Intel 64-bit,App)
+      - Debug/Windows
+      - Debug/Linux/Player/IL2CPP
+      - Debug/Linux/Player
+      - Debug/Linux
+      - Debug
+      - Shipping/Windows/Player (Intel 64-bit,App)/IL2CPP
+      - Shipping/Windows/Player (Intel 64-bit,App)
+      - Shipping/Windows
+      - Shipping/Linux/Player/IL2CPP
+      - Shipping/Linux/Player
+      - Shipping/Linux
+      - Shipping
+      - 
+      - 
+      - 
+      _Values:
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys:
+        - Debug/Windows/Player (Intel 64-bit,App)/IL2CPP
+      - enabled: 1
+        childKeys:
+        - Debug/Windows/Player (Intel 64-bit,App)
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys:
+        - Debug/Linux/Player/IL2CPP
+      - enabled: 1
+        childKeys:
+        - Debug/Linux/Player
+      - enabled: 1
+        childKeys:
+        - Debug/Windows
+        - Debug/Linux
+      - enabled: 0
+        childKeys: []
+      - enabled: 1
+        childKeys:
+        - Shipping/Windows/Player (Intel 64-bit,App)/IL2CPP
+      - enabled: 1
+        childKeys:
+        - Shipping/Windows/Player (Intel 64-bit,App)
+      - enabled: 0
+        childKeys: []
+      - enabled: 1
+        childKeys:
+        - Shipping/Linux/Player/IL2CPP
+      - enabled: 1
+        childKeys:
+        - Shipping/Linux/Player
+      - enabled: 1
+        childKeys:
+        - Shipping/Windows
+        - Shipping/Linux
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys: []
+    showViewOptions: 0
+    showConfigs: 0
+    showBuildInfo: 0
+    hideDisabled: 0
+    treeView: 0
+    selectedKeyChain: 
+  _preBuildActions:
+    buildActions: []
+  _postBuildActions:
+    buildActions: []
+--- !u!114 &1474986710601063885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dc439ce9d1bfb34a821f7d6fabc4fef, type: 3}
+  m_Name: Linux
+  m_EditorClassIdentifier: 
+  enabled: 1
+  distributionList:
+    distributions: []
+  targets:
+  - type: 24
+    name: Player
+    enabled: 1
+    binaryNameFormat: '{0}.x86_64'
+    subtarget: 0
+  - type: 24
+    name: Dedicated Server
+    enabled: 0
+    binaryNameFormat: '{0}.x86_64'
+    subtarget: 1
+  variants: []
+  scriptingBackends:
+  - scriptingImplementation: 0
+    name: Mono
+    enabled: 0
+  - scriptingImplementation: 1
+    name: IL2CPP
+    enabled: 1
+  platformName: Linux
+  targetGroup: 1
