@@ -1,4 +1,7 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UpsideDown.Environment;
+using Grid = UpsideDown.Environment.Grid;
 
 namespace UpsideDown.Player
 {
@@ -29,6 +32,22 @@ namespace UpsideDown.Player
         private void Update()
         {
             Movement();
+            if (Input.GetMouseButtonDown(0))
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out RaycastHit hit))
+                {
+                    if (!EventSystem.current.IsPointerOverGameObject() && hit.collider.CompareTag("Grid"))
+                    {
+                        Grid grid = hit.collider.transform.parent.gameObject.GetComponent<Grid>();
+                        if (grid != null)
+                        {
+                            Debug.Log("Grid clicked.");
+                            GridManager.Instance.selectedGrid = grid;
+                        }
+                    }
+                }
+            }
         }
 
         private void Movement()

@@ -7,24 +7,50 @@ namespace UpsideDown.Environment
     // The interactability of the grid is determined by the Grid script.
     public class GridManager : MonoBehaviour
     {
+        public static GridManager Instance;
+        public Grid selectedGrid;
+        [HideInInspector] public Grid centreGrid;
         [SerializeField] private int gridWidthX;
         [SerializeField] private int gridWidthZ;
         [SerializeField] private GameObject gridPrefab;
         [SerializeField] private GameObject gridParent;
-        
+
+        private void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+
         private void Start()
         {
             CreateGrid();
         }
-        
+
         private void CreateGrid()
         {
+            if (gridWidthX % 2 == 0 || gridWidthZ % 2 == 0)
+            {
+                Debug.LogError("Grid width X and Z must be odd numbers.");
+                return;
+            }
+            
             for (int x = 0; x < gridWidthX; x++)
             {
                 for (int z = 0; z < gridWidthZ; z++)
                 {
-                    GameObject grid = Instantiate(gridPrefab, new Vector3(x, 0, z), Quaternion.identity);
+                    GameObject grid = Instantiate(gridPrefab, new Vector3(x - gridWidthX / 2, 0, z - gridWidthZ / 2), Quaternion.identity);
                     grid.transform.SetParent(gridParent.transform);
+                    if (x == gridWidthX / 2 && z == gridWidthZ / 2)
+                    {
+                        centreGrid = grid.GetComponent<Grid>();
+                        centreGrid.CentreGrid();
+                    }
                 }
             }
         }
