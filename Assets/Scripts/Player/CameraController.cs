@@ -16,6 +16,7 @@ namespace UpsideDown.Player
         [SerializeField] private Vector3 zoomAmount;
         [SerializeField] private Vector2 moveBounds;
         [SerializeField] private Vector2 zoomBounds;
+        [SerializeField] private LayerMask gridLayer;
         private Vector3 _newPosition;
         private Vector3 _newZoom;
         private Quaternion _newRotation;
@@ -32,10 +33,10 @@ namespace UpsideDown.Player
         private void Update()
         {
             Movement();
-            if (Input.GetMouseButtonDown(0))
+            if (_inputActions.Player.Select.WasPressedThisFrame())
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out RaycastHit hit))
+                if (Physics.Raycast(ray, out RaycastHit hit, 300f, gridLayer))
                 {
                     if (!EventSystem.current.IsPointerOverGameObject() && hit.collider.CompareTag("Grid"))
                     {
@@ -43,7 +44,7 @@ namespace UpsideDown.Player
                         if (grid != null)
                         {
                             Debug.Log("Grid clicked.");
-                            GridManager.Instance.selectedGrid = grid;
+                            GridManager.Instance.SelectGrid(grid);
                         }
                     }
                 }

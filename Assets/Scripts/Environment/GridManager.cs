@@ -8,12 +8,12 @@ namespace UpsideDown.Environment
     public class GridManager : MonoBehaviour
     {
         public static GridManager Instance;
-        public Grid selectedGrid;
         [HideInInspector] public Grid centreGrid;
         [SerializeField] private int gridWidthX;
         [SerializeField] private int gridWidthZ;
         [SerializeField] private GameObject gridPrefab;
         [SerializeField] private GameObject gridParent;
+        private Grid _selectedGrid;
 
         private void Awake()
         {
@@ -52,6 +52,19 @@ namespace UpsideDown.Environment
                         centreGrid.CentreGrid();
                     }
                 }
+            }
+        }
+
+        public void SelectGrid(Grid grid)
+        {
+            if (_selectedGrid != null)
+            {
+                _selectedGrid.GridSelection(false);
+            }
+            if (grid != null)
+            {
+                _selectedGrid = grid;
+                _selectedGrid.GridSelection(true);
             }
         }
     }
