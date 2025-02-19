@@ -1,4 +1,5 @@
 using UnityEngine;
+using UpsideDown.UI;
 
 namespace UpsideDown.Environment
 {
@@ -65,6 +66,11 @@ namespace UpsideDown.Environment
             {
                 _selectedGrid = grid;
                 _selectedGrid.GridSelection(true);
+                UIManager.Instance.ToggleTowerUpgradePanel(true, grid);
+            }
+            else
+            {
+                UIManager.Instance.ToggleTowerUpgradePanel(false);
             }
         }
     }

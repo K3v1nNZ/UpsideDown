@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UpsideDown.ScriptableObjects;
 using Grid = UpsideDown.Environment.Grid;
@@ -6,6 +7,7 @@ namespace UpsideDown.Player
 {
     public class StructureCreator : MonoBehaviour
     {
+        public static StructureCreator Instance;
         [SerializeField] private GameObject creatorMousePosition;
         [SerializeField] private LayerMask gridLayerMask;
         private StructureScriptableObject _structure;
@@ -13,6 +15,18 @@ namespace UpsideDown.Player
         private Vector3 _objectHoldPos;
         private InputActions _inputActions;
         public bool isPlacingStructure;
+
+        private void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
 
         private void Start()
         {
@@ -48,8 +62,8 @@ namespace UpsideDown.Player
             if (!ResourcesManager.Instance.playerResources.CanAfford(_structure.structureUpgrades[0].upgradeCost)) return;
             ResourcesManager.Instance.playerResources.Deduct(_structure.structureUpgrades[0].upgradeCost);
             _hoveredGrid.transform.parent.gameObject.GetComponent<Grid>().CreateStructure(_structure);
-            isPlacingStructure = false;
             _hoveredGrid = null;
+            isPlacingStructure = false;
         }
 
         public void CreateStructure(StructureScriptableObject structure)

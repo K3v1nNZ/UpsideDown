@@ -33,7 +33,7 @@ namespace UpsideDown.Player
         private void Update()
         {
             Movement();
-            if (_inputActions.Player.Select.WasPressedThisFrame())
+            if (_inputActions.Player.Select.WasPressedThisFrame() && !StructureCreator.Instance.isPlacingStructure)
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out RaycastHit hit, 300f, gridLayer))
@@ -43,11 +43,15 @@ namespace UpsideDown.Player
                         Grid grid = hit.collider.transform.parent.gameObject.GetComponent<Grid>();
                         if (grid != null)
                         {
-                            Debug.Log("Grid clicked.");
                             GridManager.Instance.SelectGrid(grid);
                         }
                     }
                 }
+            }
+            
+            if (_inputActions.Player.Cancel.WasPressedThisFrame())
+            {
+                GridManager.Instance.SelectGrid(null);
             }
         }
 
