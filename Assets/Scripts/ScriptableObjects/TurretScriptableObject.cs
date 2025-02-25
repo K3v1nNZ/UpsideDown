@@ -6,6 +6,7 @@ namespace UpsideDown.ScriptableObjects
     [CreateAssetMenu(fileName = "Turret", menuName = "Structures/Turret", order = 1)]
     public class TurretScriptableObject : StructureScriptableObject
     {
-        public Dictionary<float, int> UpgradeFirerateDamageAmounts;
+        public List<float> upgradeFireAmount;
+        public List<int> upgradeDamageAmount;
     }
 }

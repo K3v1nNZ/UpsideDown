@@ -9,18 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c52908d830b74556892c95b4b6faaff1, type: 3}
-  m_Name: Turret
+  m_Script: {fileID: 11500000, guid: cd572f76d71d4670bdd831ea1b291213, type: 3}
+  m_Name: Wall
   m_EditorClassIdentifier: 
-  structureName: BasicTurret
-  structureIcon: {fileID: 0}
+  structureName: Wall
+  structureIcon: {fileID: 2800000, guid: 37e93113453ac0d46863acd4090899c8, type: 3}
   structureUpgrades:
-  - structurePrefab: {fileID: 4221919296102308759, guid: ffe2ab725d9b5734c8c18d05c3f78819, type: 3}
+  - structurePrefab: {fileID: 142093339426611749, guid: 070de4cd04b4eb3448b1a3194ee709df, type: 3}
     upgradeCost:
       stone: 2
       metal: 2
-      power: 1
-  structureType: 2
-  upgradeFireAmount:
-  - 1
-  upgradeDamageAmount: 16000000
+      power: 2
+  structureType: 3
+  wallHealth: 14000000

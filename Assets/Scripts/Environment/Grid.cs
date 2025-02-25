@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.Serialization;
+using UpsideDown.Player;
 using UpsideDown.ScriptableObjects;
 
 namespace UpsideDown.Environment
@@ -8,14 +8,78 @@ namespace UpsideDown.Environment
     {
         [SerializeField] private GameObject _gridHighlight;
         [HideInInspector] public StructureScriptableObject structure;
-        private bool _isHighlighted;
         public bool isOccupied;
         public bool isCentreGrid;
+        public bool isEdge;
         public int structureLevel;
-        
-        public void CentreGrid()
+        public StructureScriptableObject.StructureType structureType;
+        private float _generatorTimer;
+
+        private void Update()
         {
-            // TODO: Add Core Structure to this grid tile
+            if (!isOccupied || structureType == StructureScriptableObject.StructureType.Other || structureType == StructureScriptableObject.StructureType.Wall) return;
+            
+            switch (structureType)
+            {
+                case StructureScriptableObject.StructureType.Generator:
+                    GeneratorUpdate();
+                    break;
+                case StructureScriptableObject.StructureType.Turret:
+                    TurretUpdate();
+                    break;
+                case StructureScriptableObject.StructureType.Storage:
+                    StorageUpdate();
+                    break;
+            }
+        }
+
+        private void GeneratorUpdate()
+        {
+            if (_generatorTimer >= 10)
+            {
+                _generatorTimer = 0;
+                GeneratorScriptableObject generator = structure as GeneratorScriptableObject;
+                switch (generator.resourceType)
+                {
+                    case ResourceType.Stone:
+                        ResourcesManager.Instance.playerResources.Add(new GameResources(generator.upgradeGenerationAmounts[structureLevel - 1], 0, 0));
+                        break;
+                    case ResourceType.Metal:
+                        ResourcesManager.Instance.playerResources.Add(new GameResources(0, generator.upgradeGenerationAmounts[structureLevel - 1], 0));
+                        break;
+                    case ResourceType.Power:
+                        ResourcesManager.Instance.playerResources.Add(new GameResources(0, 0, generator.upgradeGenerationAmounts[structureLevel - 1]));
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                _generatorTimer += Time.deltaTime;
+            }
+        }
+        
+        private void TurretUpdate()
+        {
+            
+        }
+        
+        private void StorageUpdate()
+        {
+            
+        }
+
+        public void CentreGrid(StructureScriptableObject coreStructure)
+        { 
+            if (isEdge) return;
+            structure = coreStructure;
+            isOccupied = true;
+            isCentreGrid = true;
+            GameObject structurePrefab = Instantiate(coreStructure.structureUpgrades[0].structurePrefab, transform.position, Quaternion.identity);
+            structurePrefab.transform.SetParent(transform);
+            structureLevel = 1;
+            structureType = coreStructure.structureType;
         }
         
         public void CreateStructure(StructureScriptableObject structure)
@@ -23,13 +87,32 @@ namespace UpsideDown.Environment
             this.structure = structure;
             isOccupied = true;
             GameObject structurePrefab = Instantiate(structure.structureUpgrades[0].structurePrefab, transform.position, Quaternion.identity);
+            if (structure.structureType == StructureScriptableObject.StructureType.Wall)
+            {
+                structurePrefab.transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
+            }
             structurePrefab.transform.SetParent(transform);
             structureLevel = 1;
+            structureType = structure.structureType;
+        }
+
+        public void DestroyStructure()
+        {
+            foreach (Transform child in transform)
+            {
+                if (child.CompareTag("GridModel") || child.CompareTag("EdgeModel"))
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+            structure = null;
+            isOccupied = false;
+            structureLevel = 0;
+            structureType = StructureScriptableObject.StructureType.Other;
         }
         
         public void GridSelection(bool state)
         {
-            _isHighlighted = state;
             _gridHighlight.SetActive(state);
         }
     }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UpsideDown.ScriptableObjects;
 using UpsideDown.UI;
 
 namespace UpsideDown.Environment
@@ -12,8 +13,10 @@ namespace UpsideDown.Environment
         [HideInInspector] public Grid centreGrid;
         [SerializeField] private int gridWidthX;
         [SerializeField] private int gridWidthZ;
+        [SerializeField] private GameObject edgePrefab;
         [SerializeField] private GameObject gridPrefab;
         [SerializeField] private GameObject gridParent;
+        [SerializeField] private StructureScriptableObject coreStructure;
         private Grid _selectedGrid;
 
         private void Awake()
@@ -47,10 +50,22 @@ namespace UpsideDown.Environment
                 {
                     GameObject grid = Instantiate(gridPrefab, new Vector3(x - gridWidthX / 2, 0, z - gridWidthZ / 2), Quaternion.identity);
                     grid.transform.SetParent(gridParent.transform);
+                    
+                    if (x < gridWidthX - 1)
+                    {
+                        GameObject horizontalEdge = Instantiate(edgePrefab, new Vector3(x - gridWidthX / 2 + 0.5f, 0, z - gridWidthZ / 2), Quaternion.Euler(0, 0, 0)); // No rotation if aligned
+                        horizontalEdge.transform.SetParent(gridParent.transform);
+                    }
+                    if (z < gridWidthZ - 1)
+                    {
+                        GameObject verticalEdge = Instantiate(edgePrefab, new Vector3(x - gridWidthX / 2, 0, z - gridWidthZ / 2 + 0.5f), Quaternion.Euler(0, 90, 0)); // Rotate 90 degrees along Y-axis for vertical
+                        verticalEdge.transform.SetParent(gridParent.transform);
+                    }
+                    
                     if (x == gridWidthX / 2 && z == gridWidthZ / 2)
                     {
                         centreGrid = grid.GetComponent<Grid>();
-                        centreGrid.CentreGrid();
+                        centreGrid.CentreGrid(coreStructure);
                     }
                 }
             }
@@ -72,6 +87,11 @@ namespace UpsideDown.Environment
             {
                 UIManager.Instance.ToggleTowerUpgradePanel(false);
             }
+        }
+        
+        public void DestroyStructure()
+        {
+            _selectedGrid.DestroyStructure();
         }
     }
 }

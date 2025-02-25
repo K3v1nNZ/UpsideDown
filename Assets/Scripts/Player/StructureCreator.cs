@@ -10,9 +10,11 @@ namespace UpsideDown.Player
         public static StructureCreator Instance;
         [SerializeField] private GameObject creatorMousePosition;
         [SerializeField] private LayerMask gridLayerMask;
+        [SerializeField] private LayerMask edgeLayerMask;
         private StructureScriptableObject _structure;
         private GameObject _hoveredGrid;
         private Vector3 _objectHoldPos;
+        private Vector3 _objectHoldRot;
         private InputActions _inputActions;
         public bool isPlacingStructure;
 
@@ -36,22 +38,46 @@ namespace UpsideDown.Player
         private void Update()
         {
             if (!isPlacingStructure) return;
-
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit, 300f, gridLayerMask))
+            if (_structure.structureType == StructureScriptableObject.StructureType.Wall)
             {
-                if (hit.transform.gameObject != _hoveredGrid)
+                if (Physics.Raycast(ray, out RaycastHit hit, 300f, edgeLayerMask))
                 {
-                    _hoveredGrid = hit.transform.gameObject;
-                    creatorMousePosition.transform.position = hit.transform.position;
-                    _objectHoldPos = hit.transform.position;
+                    if (hit.transform.gameObject != _hoveredGrid)
+                    {
+                        _hoveredGrid = hit.transform.gameObject;
+                        creatorMousePosition.transform.position = hit.transform.position;
+                        _objectHoldPos = hit.transform.position;
+                        _objectHoldRot = hit.transform.parent.rotation.eulerAngles;
+                    }
+                    creatorMousePosition.transform.position = _objectHoldPos;
+                    creatorMousePosition.transform.rotation = Quaternion.Euler(_objectHoldRot);
                 }
-                creatorMousePosition.transform.position = _objectHoldPos;
+            }
+            else
+            {
+                if (Physics.Raycast(ray, out RaycastHit hit, 300f, gridLayerMask))
+                {
+                    if (hit.transform.gameObject != _hoveredGrid)
+                    {
+                        _hoveredGrid = hit.transform.gameObject;
+                        creatorMousePosition.transform.position = hit.transform.position;
+                        _objectHoldPos = hit.transform.position;
+                    }
+                    creatorMousePosition.transform.position = _objectHoldPos;
+                }
             }
             
             if (_inputActions.Player.Select.WasPressedThisFrame())
             {
                 PlaceStructure();
+            }
+            
+            if (_inputActions.Player.Cancel.WasPressedThisFrame())
+            {
+                Destroy(creatorMousePosition.transform.GetChild(0).gameObject);
+                isPlacingStructure = false;
+                _hoveredGrid = null;
             }
         }
 
@@ -64,6 +90,8 @@ namespace UpsideDown.Player
             _hoveredGrid.transform.parent.gameObject.GetComponent<Grid>().CreateStructure(_structure);
             _hoveredGrid = null;
             isPlacingStructure = false;
+            Destroy(creatorMousePosition.transform.GetChild(0).gameObject);
+            creatorMousePosition.transform.rotation = Quaternion.identity;
         }
 
         public void CreateStructure(StructureScriptableObject structure)

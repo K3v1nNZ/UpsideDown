@@ -38,7 +38,7 @@ namespace UpsideDown.Player
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out RaycastHit hit, 300f, gridLayer))
                 {
-                    if (!EventSystem.current.IsPointerOverGameObject() && hit.collider.CompareTag("Grid"))
+                    if (!EventSystem.current.IsPointerOverGameObject() && hit.collider.CompareTag("Grid") || !EventSystem.current.IsPointerOverGameObject() && hit.collider.CompareTag("Edge"))
                     {
                         Grid grid = hit.collider.transform.parent.gameObject.GetComponent<Grid>();
                         if (grid != null)
@@ -61,39 +61,39 @@ namespace UpsideDown.Player
             Vector2 movementInput = _inputActions.Player.Move.ReadValue<Vector2>();
             if (movementInput.y > 0)
             {
-                _newPosition += (transform.forward * movementSpeed);
+                _newPosition += (transform.forward * (movementSpeed * Time.deltaTime));
             }
             if (movementInput.y < 0)
             {
-                _newPosition += (transform.forward * -movementSpeed);
+                _newPosition += (transform.forward * (-movementSpeed * Time.deltaTime));
             }
             if (movementInput.x > 0)
             {
-                _newPosition += (transform.right * movementSpeed);
+                _newPosition += (transform.right * (movementSpeed * Time.deltaTime));
             }
             if (movementInput.x < 0)
             {
-                _newPosition += (transform.right * -movementSpeed);
+                _newPosition += (transform.right * (-movementSpeed * Time.deltaTime));
             }
 
             // Camera rotation
             if (_inputActions.Player.RotateLeft.IsPressed())
             {
-                _newRotation *= Quaternion.Euler(Vector3.up * rotationAmount);
+                _newRotation *= Quaternion.Euler(Vector3.up * (rotationAmount * Time.deltaTime));
             }
             if (_inputActions.Player.RotateRight.IsPressed())
             {
-                _newRotation *= Quaternion.Euler(Vector3.up * -rotationAmount);
+                _newRotation *= Quaternion.Euler(Vector3.up * (-rotationAmount * Time.deltaTime));
             }
             
             // Camera zoom
             if (_inputActions.Player.Zoom.ReadValue<float>() > 0)
             {
-                _newZoom += zoomAmount;
+                _newZoom += zoomAmount * Time.deltaTime;
             }
             if (_inputActions.Player.Zoom.ReadValue<float>() < 0)
             {
-                _newZoom -= zoomAmount;
+                _newZoom -= zoomAmount * Time.deltaTime;
             }
 
             // Clamp camera movement and zoom

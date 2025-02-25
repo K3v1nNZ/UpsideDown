@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Grid
+  - GridModel
+  - Edge
+  - EdgeModel
   layers:
   - Default
   - TransparentFX
@@ -12,7 +15,7 @@ TagManager:
   - Grid
   - Water
   - UI
-  - 
+  - Edge
   - 
   - 
   - 
