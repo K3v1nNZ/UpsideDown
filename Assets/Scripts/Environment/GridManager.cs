@@ -88,6 +88,11 @@ namespace UpsideDown.Environment
                 UIManager.Instance.ToggleTowerUpgradePanel(false);
             }
         }
+
+        public void UpgradeStructure()
+        {
+            _selectedGrid.Upgrade();
+        }
         
         public void DestroyStructure()
         {

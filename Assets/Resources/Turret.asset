@@ -20,7 +20,13 @@ MonoBehaviour:
       stone: 2
       metal: 2
       power: 1
+  - structurePrefab: {fileID: 142093339426611749, guid: 070de4cd04b4eb3448b1a3194ee709df, type: 3}
+    upgradeCost:
+      stone: 4
+      metal: 4
+      power: 2
   structureType: 2
   upgradeFireAmount:
   - 1
-  upgradeDamageAmount: 16000000
+  - 2
+  upgradeDamageAmount: 160000002c000000

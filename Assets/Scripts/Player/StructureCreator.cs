@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UpsideDown.Environment;
 using UpsideDown.ScriptableObjects;
+using UpsideDown.UI;
 using Grid = UpsideDown.Environment.Grid;
 
 namespace UpsideDown.Player
@@ -39,9 +42,10 @@ namespace UpsideDown.Player
         {
             if (!isPlacingStructure) return;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
             if (_structure.structureType == StructureScriptableObject.StructureType.Wall)
             {
-                if (Physics.Raycast(ray, out RaycastHit hit, 300f, edgeLayerMask))
+                if (Physics.Raycast(ray, out hit, 300f, edgeLayerMask))
                 {
                     if (hit.transform.gameObject != _hoveredGrid)
                     {
@@ -56,7 +60,7 @@ namespace UpsideDown.Player
             }
             else
             {
-                if (Physics.Raycast(ray, out RaycastHit hit, 300f, gridLayerMask))
+                if (Physics.Raycast(ray, out hit, 300f, gridLayerMask))
                 {
                     if (hit.transform.gameObject != _hoveredGrid)
                     {
@@ -68,17 +72,23 @@ namespace UpsideDown.Player
                 }
             }
             
-            if (_inputActions.Player.Select.WasPressedThisFrame())
+            if (_inputActions.Player.Select.WasPressedThisFrame() && !EventSystem.current.IsPointerOverGameObject())
             {
                 PlaceStructure();
             }
             
             if (_inputActions.Player.Cancel.WasPressedThisFrame())
             {
-                Destroy(creatorMousePosition.transform.GetChild(0).gameObject);
-                isPlacingStructure = false;
-                _hoveredGrid = null;
+                CancelPlacement();
             }
+        }
+        
+        public void CancelPlacement()
+        {
+            Destroy(creatorMousePosition.transform.GetChild(0).gameObject);
+            isPlacingStructure = false;
+            _hoveredGrid = null;
+            _ = UIManager.Instance.PlacementUI(null);
         }
 
         private void PlaceStructure()
@@ -87,11 +97,13 @@ namespace UpsideDown.Player
             if (_hoveredGrid.transform.parent.gameObject.GetComponent<Grid>().isOccupied) return;
             if (!ResourcesManager.Instance.playerResources.CanAfford(_structure.structureUpgrades[0].upgradeCost)) return;
             ResourcesManager.Instance.playerResources.Deduct(_structure.structureUpgrades[0].upgradeCost);
-            _hoveredGrid.transform.parent.gameObject.GetComponent<Grid>().CreateStructure(_structure);
+            _hoveredGrid.transform.parent.gameObject.GetComponent<Grid>().CreateStructure(_structure, 1, false);
             _hoveredGrid = null;
             isPlacingStructure = false;
             Destroy(creatorMousePosition.transform.GetChild(0).gameObject);
             creatorMousePosition.transform.rotation = Quaternion.identity;
+            GridManager.Instance.SelectGrid(null);
+            _ = UIManager.Instance.PlacementUI(null);
         }
 
         public void CreateStructure(StructureScriptableObject structure)
@@ -101,6 +113,7 @@ namespace UpsideDown.Player
             GameObject structurePrefab = Instantiate(structure.structureUpgrades[0].structurePrefab, creatorMousePosition.transform.position, Quaternion.identity);
             structurePrefab.transform.SetParent(creatorMousePosition.transform);
             isPlacingStructure = true;
+            _ = UIManager.Instance.PlacementUI(_structure);
         }
     }
 }

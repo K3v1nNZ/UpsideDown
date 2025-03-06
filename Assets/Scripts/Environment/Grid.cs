@@ -82,17 +82,18 @@ namespace UpsideDown.Environment
             structureType = coreStructure.structureType;
         }
         
-        public void CreateStructure(StructureScriptableObject structure)
+        public void CreateStructure(StructureScriptableObject structure, int level, bool upgrade = false)
         {
             this.structure = structure;
             isOccupied = true;
-            GameObject structurePrefab = Instantiate(structure.structureUpgrades[0].structurePrefab, transform.position, Quaternion.identity);
+            GameObject structurePrefab = Instantiate(structure.structureUpgrades[upgrade ? level : 0].structurePrefab, transform.position, Quaternion.identity);
             if (structure.structureType == StructureScriptableObject.StructureType.Wall)
             {
                 structurePrefab.transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
             }
             structurePrefab.transform.SetParent(transform);
-            structureLevel = 1;
+            structureLevel = level + 1;
+            structureLevel = upgrade ? level + 1 : 1;
             structureType = structure.structureType;
         }
 
@@ -114,6 +115,18 @@ namespace UpsideDown.Environment
         public void GridSelection(bool state)
         {
             _gridHighlight.SetActive(state);
+        }
+
+        public void Upgrade()
+        {
+            if (ResourcesManager.Instance.playerResources.CanAfford(structure.structureUpgrades[structureLevel].upgradeCost))
+            {
+                ResourcesManager.Instance.playerResources.Deduct(structure.structureUpgrades[structureLevel].upgradeCost);
+                StructureScriptableObject tower = structure;
+                int currentLevel = structureLevel;
+                DestroyStructure();
+                CreateStructure(tower, currentLevel, true);
+            }
         }
     }
 }
