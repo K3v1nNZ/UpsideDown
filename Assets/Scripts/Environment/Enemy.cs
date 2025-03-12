@@ -47,11 +47,16 @@ namespace UpsideDown.Environment
             Debug.Log("Recalculating Route...");
             NavMesh.CalculatePath(transform.position, _coreDestination, NavMesh.AllAreas, _path);
             _navMeshAgent.SetPath(_path);
-            while (_navMeshAgent.remainingDistance > 0.01f) yield return null;
+            while (_navMeshAgent.remainingDistance > 0) yield return null;
             Debug.Log("Arrived");
+            if (transform.position is { x: 0, z: 0 })
+            {
+                // damage it and kill self
+                Destroy(gameObject);
+            }
             transform.LookAt(new Vector3(_coreDestination.x, transform.position.y, _coreDestination.z));
             Debug.DrawRay(new Vector3(transform.position.x, 0.1f, transform.position.z), transform.forward, Color.red);
-            if (Physics.Raycast(new Vector3(transform.position.x, 0.1f, transform.position.z), transform.forward, out RaycastHit hit))
+            if (Physics.Raycast(new Vector3(transform.position.x, 0.1f, transform.position.z), transform.forward, out RaycastHit hit, 0.3f))
             {
                 Debug.Log(hit.collider.name);
                 if (hit.collider.CompareTag("EdgeModel") || hit.collider.CompareTag("GridModel"))
@@ -73,6 +78,11 @@ namespace UpsideDown.Environment
                         yield return null;
                     }
                 }
+            }
+            else
+            {
+                yield return new WaitForSeconds(0.5f);
+                Recalculate();
             }
         }
     }
