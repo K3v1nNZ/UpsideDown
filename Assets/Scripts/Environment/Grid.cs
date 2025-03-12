@@ -8,6 +8,7 @@ namespace UpsideDown.Environment
     {
         [SerializeField] private GameObject _gridHighlight;
         [HideInInspector] public StructureScriptableObject structure;
+        public int health;
         public bool isOccupied;
         public bool isCentreGrid;
         public bool isEdge;
@@ -80,6 +81,7 @@ namespace UpsideDown.Environment
             structurePrefab.transform.SetParent(transform);
             structureLevel = 1;
             structureType = coreStructure.structureType;
+            health = 100;
         }
         
         public void CreateStructure(StructureScriptableObject structure, int level, bool upgrade = false)
@@ -92,9 +94,11 @@ namespace UpsideDown.Environment
                 structurePrefab.transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
             }
             structurePrefab.transform.SetParent(transform);
-            structureLevel = level + 1;
             structureLevel = upgrade ? level + 1 : 1;
             structureType = structure.structureType;
+            structure.StructureStart(structureLevel);
+            GridManager.Instance.UpdateNavMeshAsync();
+            health = 100;
         }
 
         public void DestroyStructure()
@@ -106,10 +110,12 @@ namespace UpsideDown.Environment
                     Destroy(child.gameObject);
                 }
             }
+            structure.StructureStop(structureLevel);
             structure = null;
             isOccupied = false;
             structureLevel = 0;
             structureType = StructureScriptableObject.StructureType.Other;
+            GridManager.Instance.UpdateNavMeshAsync();
         }
         
         public void GridSelection(bool state)
@@ -126,6 +132,15 @@ namespace UpsideDown.Environment
                 int currentLevel = structureLevel;
                 DestroyStructure();
                 CreateStructure(tower, currentLevel, true);
+            }
+        }
+
+        public void TakeDamage(int damage)
+        {
+            health -= damage;
+            if (health <= 0)
+            {
+                DestroyStructure();
             }
         }
     }

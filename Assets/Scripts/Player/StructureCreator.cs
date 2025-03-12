@@ -112,6 +112,10 @@ namespace UpsideDown.Player
             _structure = structure;
             GameObject structurePrefab = Instantiate(structure.structureUpgrades[0].structurePrefab, creatorMousePosition.transform.position, Quaternion.identity);
             structurePrefab.transform.SetParent(creatorMousePosition.transform);
+            foreach (BoxCollider boxCollider in transform.GetComponents<BoxCollider>())
+            {
+                Destroy(boxCollider);
+            }
             isPlacingStructure = true;
             _ = UIManager.Instance.PlacementUI(_structure);
         }

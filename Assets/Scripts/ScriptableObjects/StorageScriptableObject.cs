@@ -9,5 +9,15 @@ namespace UpsideDown.ScriptableObjects
     {
         public ResourceType resourceType;
         public List<int> upgradeStorageAmounts;
+
+        public override void StructureStart(int level)
+        {
+            ResourcesManager.Instance.playerResources.AddLimit(resourceType, upgradeStorageAmounts[level - 1]);
+        }
+
+        public override void StructureStop(int level)
+        {
+            ResourcesManager.Instance.playerResources.DeductLimit(resourceType, upgradeStorageAmounts[level - 1]);
+        }
     }
 }

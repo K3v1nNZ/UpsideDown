@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using Unity.AI.Navigation;
 using UpsideDown.ScriptableObjects;
 using UpsideDown.UI;
 
@@ -17,7 +19,11 @@ namespace UpsideDown.Environment
         [SerializeField] private GameObject gridPrefab;
         [SerializeField] private GameObject gridParent;
         [SerializeField] private StructureScriptableObject coreStructure;
+        [SerializeField] private NavMeshSurface navMeshSurface;
         private Grid _selectedGrid;
+        
+        public delegate void NavigationUpdate();
+        public static event NavigationUpdate OnNavigationUpdate;
 
         private void Awake()
         {
@@ -34,6 +40,7 @@ namespace UpsideDown.Environment
         private void Start()
         {
             CreateGrid();
+            navMeshSurface.BuildNavMesh();
         }
 
         private void CreateGrid()
@@ -97,6 +104,18 @@ namespace UpsideDown.Environment
         public void DestroyStructure()
         {
             _selectedGrid.DestroyStructure();
+        }
+
+        public void UpdateNavMeshAsync()
+        {
+            StartCoroutine(UpdateNavMeshCoroutine());
+        }
+
+        private IEnumerator UpdateNavMeshCoroutine()
+        {
+            yield return new WaitForSeconds(0.2f);
+            navMeshSurface.UpdateNavMesh(navMeshSurface.navMeshData);
+            OnNavigationUpdate?.Invoke();
         }
     }
 }

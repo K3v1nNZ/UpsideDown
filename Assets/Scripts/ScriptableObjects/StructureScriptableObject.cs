@@ -19,5 +19,9 @@ namespace UpsideDown.ScriptableObjects
             Wall,
             Other
         }
+
+        public virtual void StructureStart(int level) {}
+        
+        public virtual void StructureStop(int level) {}
     }
 }

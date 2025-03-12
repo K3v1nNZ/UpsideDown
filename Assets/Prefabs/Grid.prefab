@@ -11,8 +11,7 @@ GameObject:
   - component: {fileID: 3122242507607473098}
   - component: {fileID: 5730519771834299568}
   - component: {fileID: 8803773842168816142}
-  - component: {fileID: 4111104135558470731}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: HighlightTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,19 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &4111104135558470731
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2444276359617698532}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6689239421864610931
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,7 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6689239421864610930}
   - component: {fileID: 6689239421864610933}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
@@ -145,6 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gridHighlight: {fileID: 2444276359617698532}
   structure: {fileID: 0}
+  health: 0
   isOccupied: 0
   isCentreGrid: 0
   isEdge: 0

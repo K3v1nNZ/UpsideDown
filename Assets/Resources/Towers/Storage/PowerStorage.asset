@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67d70db5945d437db1dba57bd250ba73, type: 3}
+  m_Name: PowerStorage
+  m_EditorClassIdentifier: 
+  structureName: Power Storage
+  structureIcon: {fileID: 2800000, guid: ec2f01df0bb1bfe459b5562a9e71c8d4, type: 3}
+  structureUpgrades:
+  - structurePrefab: {fileID: 4221919296102308759, guid: ffe2ab725d9b5734c8c18d05c3f78819, type: 3}
+    upgradeCost:
+      stone: 2
+      metal: 2
+      power: 2
+  - structurePrefab: {fileID: 4221919296102308759, guid: ffe2ab725d9b5734c8c18d05c3f78819, type: 3}
+    upgradeCost:
+      stone: 2
+      metal: 2
+      power: 2
+  structureType: 0
+  resourceType: 2
+  upgradeStorageAmounts: 0a00000014000000

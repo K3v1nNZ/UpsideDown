@@ -5,7 +5,7 @@ namespace UpsideDown.Player
     public class ResourcesManager : MonoBehaviour
     {
         public static ResourcesManager Instance;
-        public GameResources playerResources;
+        public GameResources playerResources = new(20, 20, 20);
         
         private void Awake()
         {

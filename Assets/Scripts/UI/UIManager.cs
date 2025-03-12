@@ -51,9 +51,9 @@ namespace UpsideDown.UI
 
         private void Update()
         {
-            playerResourcesStone.text = $"Stone: {ResourcesManager.Instance.playerResources.stone}";
-            playerResourcesMetal.text = $"Metal: {ResourcesManager.Instance.playerResources.metal}";
-            playerResourcesPower.text = $"Power: {ResourcesManager.Instance.playerResources.power}";
+            playerResourcesStone.text = $"Stone: {ResourcesManager.Instance.playerResources.stone}/{ResourcesManager.Instance.playerResources.StoneLimit}";
+            playerResourcesMetal.text = $"Metal: {ResourcesManager.Instance.playerResources.metal}/{ResourcesManager.Instance.playerResources.MetalLimit}";
+            playerResourcesPower.text = $"Power: {ResourcesManager.Instance.playerResources.power}/{ResourcesManager.Instance.playerResources.PowerLimit}";
         }
         
         public void DestroyStructure()
@@ -110,7 +110,6 @@ namespace UpsideDown.UI
                 towerPlacementPanel.blocksRaycasts = false;
                 await panel.DOAnchorPosY(-50, 0.5f).SetEase(Ease.OutQuint).AsyncWaitForCompletion();
                 towerPlacementPanel.alpha = 0;
-                
                 towerPurchase.interactable = true;
             }
         }
