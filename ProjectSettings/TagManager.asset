@@ -8,6 +8,7 @@ TagManager:
   - GridModel
   - Edge
   - EdgeModel
+  - TurretPivot
   layers:
   - Default
   - TransparentFX

@@ -9,9 +9,9 @@ namespace UpsideDown.Environment
     {
         [SerializeField] private int damage;
         [SerializeField] private float damageRate;
+        public float health;
         private NavMeshAgent _navMeshAgent;
-        private Vector3 _coreDestination = Vector3.zero;
-        private CancellationTokenSource _recalculateCancelToken = new();
+        private readonly Vector3 _coreDestination = Vector3.zero;
         private NavMeshPath _path;
         private Coroutine _recalculateCoroutine;
 
@@ -29,6 +29,16 @@ namespace UpsideDown.Environment
         private void OnDisable()
         {
             GridManager.OnNavigationUpdate -= Recalculate;
+        }
+
+        public void TakeDamage(int damage)
+        {
+            health -= damage;
+            if (health <= 0)
+            {
+                StopCoroutine(_recalculateCoroutine);
+                Destroy(gameObject);
+            }
         }
 
         private void Recalculate()

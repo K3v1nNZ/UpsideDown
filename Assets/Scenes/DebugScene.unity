@@ -1923,6 +1923,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   damageRate: 1
+  health: 100
 --- !u!195 &639553435
 NavMeshAgent:
   m_ObjectHideFlags: 0

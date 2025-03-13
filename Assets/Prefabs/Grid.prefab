@@ -129,8 +129,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c03463691923d27449b207cf67198c60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gridHighlight: {fileID: 5573476383288973277}
+  gridHighlight: {fileID: 5573476383288973277}
   structure: {fileID: 0}
+  turretLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
   health: 0
   maxHealth: 0
   isOccupied: 0

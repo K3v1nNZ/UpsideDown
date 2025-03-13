@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UpsideDown.Player;
 using UpsideDown.ScriptableObjects;
 using UpsideDown.UI;
@@ -8,8 +9,9 @@ namespace UpsideDown.Environment
 {
     public class Grid : MonoBehaviour
     {
-        [SerializeField] private GameObject _gridHighlight;
+        [FormerlySerializedAs("_gridHighlight")] [SerializeField] private GameObject gridHighlight;
         [HideInInspector] public StructureScriptableObject structure;
+        [SerializeField] public LayerMask turretLayerMask;
         public int health;
         public int maxHealth;
         public bool isOccupied;
@@ -18,18 +20,22 @@ namespace UpsideDown.Environment
         public int structureLevel;
         public StructureScriptableObject.StructureType structureType;
         private float _generatorTimer;
+        private float _turretTimer;
 
         private void Update()
         {
             if (!isOccupied || structureType == StructureScriptableObject.StructureType.Other || structureType == StructureScriptableObject.StructureType.Wall || structureType == StructureScriptableObject.StructureType.Storage) return;
 
-            if (structureType == StructureScriptableObject.StructureType.Generator)
+            switch (structureType)
             {
-                GeneratorUpdate();
-            }
-            else if (structureType == StructureScriptableObject.StructureType.Turret)
-            {
-                TurretUpdate();
+                case StructureScriptableObject.StructureType.Generator:
+                    GeneratorUpdate();
+                    break;
+                case StructureScriptableObject.StructureType.Turret:
+                    TurretUpdate();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
@@ -59,10 +65,56 @@ namespace UpsideDown.Environment
                 _generatorTimer += Time.deltaTime;
             }
         }
-        
+
+        /*private void OnDrawGizmos()
+        {
+            if (structureType == StructureScriptableObject.StructureType.Turret)
+            {
+                TurretScriptableObject turret = structure as TurretScriptableObject;
+                Gizmos.color = Color.blue;
+                Gizmos.DrawSphere(transform.position, turret.turretRange);
+            }
+        }*/
+
         private void TurretUpdate()
         {
-            
+            TurretScriptableObject turret = structure as TurretScriptableObject;
+            if (_turretTimer >= turret.upgradeFireAmount[structureLevel - 1])
+            {
+                _turretTimer = 0;
+                Collider[] results = new Collider[10];
+                int a = Physics.OverlapSphereNonAlloc(transform.position, turret.turretRange, results, turretLayerMask);
+                if (a == 0) return;
+                Collider closestEnemy = results[0];
+                foreach (Collider enemy in results)
+                {
+                    if (!enemy) continue;
+                    float current = Vector3.Distance(transform.position, closestEnemy.transform.position);
+                    float loop = Vector3.Distance(transform.position, enemy.transform.position);
+                    if (current >= loop)
+                    {
+                        closestEnemy = enemy;
+                    }
+                }
+                closestEnemy.gameObject.GetComponent<Enemy>().TakeDamage(turret.upgradeDamageAmount[structureLevel - 1]);
+                foreach (Transform child in transform)
+                {
+                    if (child.CompareTag("GridModel"))
+                    {
+                        foreach (Transform pivotChild in child.transform)
+                        {
+                            if (pivotChild.CompareTag("TurretPivot"))
+                            {
+                                pivotChild.LookAt(new Vector3(closestEnemy.transform.position.x, pivotChild.position.y, closestEnemy.transform.position.z));
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                _turretTimer += Time.deltaTime;
+            }
         }
 
         public void CentreGrid(StructureScriptableObject coreStructure)
@@ -115,7 +167,7 @@ namespace UpsideDown.Environment
         
         public void GridSelection(bool state)
         {
-            _gridHighlight.SetActive(state);
+            gridHighlight.SetActive(state);
         }
 
         public void Upgrade()
