@@ -19,6 +19,7 @@ namespace UpsideDown.Environment
         {
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _path = new NavMeshPath();
+            Recalculate();
         }
 
         private void OnEnable()
@@ -37,6 +38,7 @@ namespace UpsideDown.Environment
             if (health <= 0)
             {
                 StopCoroutine(_recalculateCoroutine);
+                WaveManager.Instance.EnemyDestroyed(gameObject);
                 Destroy(gameObject);
             }
         }
