@@ -26,6 +26,7 @@ MonoBehaviour:
       metal: 4
       power: 2
   structureType: 2
+  health: 100
   upgradeFireAmount:
   - 1
   - 2

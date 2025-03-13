@@ -21,5 +21,6 @@ MonoBehaviour:
       metal: 2
       power: 2
   structureType: 1
+  health: 100
   resourceType: 0
   upgradeGenerationAmounts: 02000000

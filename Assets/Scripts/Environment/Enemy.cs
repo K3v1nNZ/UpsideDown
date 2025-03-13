@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
 using System.Threading;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -51,7 +49,7 @@ namespace UpsideDown.Environment
             Debug.Log("Arrived");
             if (transform.position is { x: 0, z: 0 })
             {
-                // damage it and kill self
+                GridManager.Instance.centreGrid.TakeDamage(damage / 2);
                 Destroy(gameObject);
             }
             transform.LookAt(new Vector3(_coreDestination.x, transform.position.y, _coreDestination.z));

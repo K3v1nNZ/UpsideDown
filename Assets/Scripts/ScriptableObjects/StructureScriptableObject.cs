@@ -11,6 +11,7 @@ namespace UpsideDown.ScriptableObjects
         public Texture2D structureIcon;
         public List<StructureUpgrade> structureUpgrades;
         public StructureType structureType;
+        
         public enum StructureType
         {
             Storage,

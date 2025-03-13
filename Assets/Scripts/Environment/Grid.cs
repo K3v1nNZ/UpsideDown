@@ -1,6 +1,8 @@
+using System;
 using UnityEngine;
 using UpsideDown.Player;
 using UpsideDown.ScriptableObjects;
+using UpsideDown.UI;
 
 namespace UpsideDown.Environment
 {
@@ -9,6 +11,7 @@ namespace UpsideDown.Environment
         [SerializeField] private GameObject _gridHighlight;
         [HideInInspector] public StructureScriptableObject structure;
         public int health;
+        public int maxHealth;
         public bool isOccupied;
         public bool isCentreGrid;
         public bool isEdge;
@@ -18,19 +21,15 @@ namespace UpsideDown.Environment
 
         private void Update()
         {
-            if (!isOccupied || structureType == StructureScriptableObject.StructureType.Other || structureType == StructureScriptableObject.StructureType.Wall) return;
-            
-            switch (structureType)
+            if (!isOccupied || structureType == StructureScriptableObject.StructureType.Other || structureType == StructureScriptableObject.StructureType.Wall || structureType == StructureScriptableObject.StructureType.Storage) return;
+
+            if (structureType == StructureScriptableObject.StructureType.Generator)
             {
-                case StructureScriptableObject.StructureType.Generator:
-                    GeneratorUpdate();
-                    break;
-                case StructureScriptableObject.StructureType.Turret:
-                    TurretUpdate();
-                    break;
-                case StructureScriptableObject.StructureType.Storage:
-                    StorageUpdate();
-                    break;
+                GeneratorUpdate();
+            }
+            else if (structureType == StructureScriptableObject.StructureType.Turret)
+            {
+                TurretUpdate();
             }
         }
 
@@ -65,11 +64,6 @@ namespace UpsideDown.Environment
         {
             
         }
-        
-        private void StorageUpdate()
-        {
-            
-        }
 
         public void CentreGrid(StructureScriptableObject coreStructure)
         { 
@@ -81,7 +75,7 @@ namespace UpsideDown.Environment
             structurePrefab.transform.SetParent(transform);
             structureLevel = 1;
             structureType = coreStructure.structureType;
-            health = 100;
+            SetHealth();
         }
         
         public void CreateStructure(StructureScriptableObject structure, int level, bool upgrade = false)
@@ -98,11 +92,12 @@ namespace UpsideDown.Environment
             structureType = structure.structureType;
             structure.StructureStart(structureLevel);
             GridManager.Instance.UpdateNavMeshAsync();
-            health = 100;
+            SetHealth();
         }
 
         public void DestroyStructure()
         {
+            if (!structure) return;
             foreach (Transform child in transform)
             {
                 if (child.CompareTag("GridModel") || child.CompareTag("EdgeModel"))
@@ -135,11 +130,45 @@ namespace UpsideDown.Environment
             }
         }
 
+        private void SetHealth()
+        {
+            switch (structureType)
+            {
+                case StructureScriptableObject.StructureType.Generator:
+                    GeneratorScriptableObject generatorScriptableObject = structure as GeneratorScriptableObject;
+                    health = generatorScriptableObject.health;
+                    maxHealth = generatorScriptableObject.health;
+                    break;
+                case StructureScriptableObject.StructureType.Turret:
+                    TurretScriptableObject turretScriptableObject = structure as TurretScriptableObject;
+                    health = turretScriptableObject.health;
+                    maxHealth = turretScriptableObject.health;
+                    break;
+                case StructureScriptableObject.StructureType.Storage:
+                    StorageScriptableObject storageScriptableObject = structure as StorageScriptableObject;
+                    health = storageScriptableObject.health;
+                    maxHealth = storageScriptableObject.health;
+                    break;
+                case StructureScriptableObject.StructureType.Wall:
+                    WallScriptableObject wallScriptableObject = structure as WallScriptableObject;
+                    health = wallScriptableObject.wallHealth[structureLevel - 1];
+                    maxHealth = wallScriptableObject.wallHealth[structureLevel - 1];
+                    break;
+                case StructureScriptableObject.StructureType.Other:
+                    health = 100;
+                    maxHealth = 100;
+                    break;
+                default:
+                    break;
+            }
+        }
+        
         public void TakeDamage(int damage)
         {
             health -= damage;
             if (health <= 0)
             {
+                if (UIManager.Instance.grid == this) UIManager.Instance.ToggleTowerUpgradePanel(false);
                 DestroyStructure();
             }
         }

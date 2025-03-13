@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using UpsideDown.Environment;
 using UpsideDown.Player;
@@ -33,9 +34,11 @@ namespace UpsideDown.UI
         [SerializeField] private Button towerUpgradeUpgradeButton;
         [SerializeField] private TMP_Text towerUpgradeUpgradeValue;
         [SerializeField] private TMP_Text towerUpgradeLevel;
+        [SerializeField] private Image healthBarFill;
         [SerializeField] private TMP_Text playerResourcesStone;
         [SerializeField] private TMP_Text playerResourcesMetal;
         [SerializeField] private TMP_Text playerResourcesPower;
+        [HideInInspector] public Grid grid;
         
         private void Awake()
         {
@@ -54,6 +57,11 @@ namespace UpsideDown.UI
             playerResourcesStone.text = $"Stone: {ResourcesManager.Instance.playerResources.stone}/{ResourcesManager.Instance.playerResources.StoneLimit}";
             playerResourcesMetal.text = $"Metal: {ResourcesManager.Instance.playerResources.metal}/{ResourcesManager.Instance.playerResources.MetalLimit}";
             playerResourcesPower.text = $"Power: {ResourcesManager.Instance.playerResources.power}/{ResourcesManager.Instance.playerResources.PowerLimit}";
+
+            if (grid)
+            {
+                healthBarFill.fillAmount = (float)grid.health / grid.maxHealth;
+            }
         }
         
         public void DestroyStructure()
@@ -125,6 +133,7 @@ namespace UpsideDown.UI
             towerUpgradePanel.interactable = state;
             towerUpgradePanel.blocksRaycasts = state;
             if (!grid || !state) return;
+            this.grid = grid;
             if (!grid.isOccupied)
             {
                 towerUpgradeName.text = "Empty";

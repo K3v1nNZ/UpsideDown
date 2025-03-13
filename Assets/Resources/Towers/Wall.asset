@@ -21,4 +21,4 @@ MonoBehaviour:
       metal: 2
       power: 2
   structureType: 3
-  wallHealth: 14000000
+  wallHealth: 32000000
