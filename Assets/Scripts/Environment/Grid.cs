@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UpsideDown.Player;
@@ -105,7 +106,8 @@ namespace UpsideDown.Environment
                         {
                             if (pivotChild.CompareTag("TurretPivot"))
                             {
-                                pivotChild.LookAt(new Vector3(closestEnemy.transform.position.x, pivotChild.position.y, closestEnemy.transform.position.z));
+                                pivotChild.DOLookAt(new Vector3(closestEnemy.transform.position.x, pivotChild.position.y, closestEnemy.transform.position.z), 0.1f).SetEase(Ease.Linear);
+                                //TODO: Shoot Animation
                             }
                         }
                     }
@@ -218,6 +220,7 @@ namespace UpsideDown.Environment
         public void TakeDamage(int damage)
         {
             health -= damage;
+            //TODO: Take Damage Animation
             if (health <= 0)
             {
                 if (UIManager.Instance.grid == this) UIManager.Instance.ToggleTowerUpgradePanel(false);

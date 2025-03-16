@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using DG.Tweening;
 using TMPro;
@@ -14,6 +15,7 @@ namespace UpsideDown.UI
     public class UIManager : MonoBehaviour
     {
         public static UIManager Instance;
+        [SerializeField] private CanvasGroup mainCanvasGroup;
         [SerializeField] private CanvasGroup towerPurchase;
         [SerializeField] private Color tabSelectedColor;
         [SerializeField] private Color tabUnselectedColor;
@@ -38,7 +40,15 @@ namespace UpsideDown.UI
         [SerializeField] private TMP_Text playerResourcesStone;
         [SerializeField] private TMP_Text playerResourcesMetal;
         [SerializeField] private TMP_Text playerResourcesPower;
+        [SerializeField] private TMP_Text waveCounter;
+        [SerializeField] private TMP_Text waveTimer;
+        [SerializeField] private RectTransform waveTimerPanel;
+        [SerializeField] private RectTransform flipStatsPanel;
+        [SerializeField] private GameObject flipStatsContainer;
+        [SerializeField] private GameObject flipStatsObject;
         [HideInInspector] public Grid grid;
+        private bool _waveTimerVisibility;
+        private bool _flipStatsPanelVisibility;
         
         private void Awake()
         {
@@ -57,6 +67,8 @@ namespace UpsideDown.UI
             playerResourcesStone.text = $"Stone: {ResourcesManager.Instance.playerResources.stone}/{ResourcesManager.Instance.playerResources.StoneLimit}";
             playerResourcesMetal.text = $"Metal: {ResourcesManager.Instance.playerResources.metal}/{ResourcesManager.Instance.playerResources.MetalLimit}";
             playerResourcesPower.text = $"Power: {ResourcesManager.Instance.playerResources.power}/{ResourcesManager.Instance.playerResources.PowerLimit}";
+            waveCounter.text = $"Wave: {WaveManager.Instance.waveNumber}";
+            waveTimer.text = WaveManager.Instance.waveCountdown.ToString("0.00");
 
             if (grid)
             {
@@ -169,6 +181,31 @@ namespace UpsideDown.UI
                 GameResources resources = grid.structure.structureUpgrades[grid.structureLevel].upgradeCost;
                 towerUpgradeUpgradeValue.text = $"Stone:{resources.stone} Metal:{resources.metal} Power:{resources.power}";
             }
+        }
+
+        public void SetUIVisibility(bool state)
+        {
+            mainCanvasGroup.DOFade(state ? 1 : 0, 0.25f);
+            mainCanvasGroup.interactable = state;
+            mainCanvasGroup.blocksRaycasts = state;
+        }
+
+        public void SetWaveCountdownVisibility(bool state)
+        {
+            if (state == _waveTimerVisibility) return;
+            waveTimerPanel.DOAnchorPosX(state ? 0 : 130, 0.5f).SetEase(Ease.OutQuint);
+            _waveTimerVisibility = state;
+        }
+
+        public void SetFlipStatsInfo()
+        {
+            
+        }
+
+        public void SetFlipStatsVisibility()
+        {
+            _flipStatsPanelVisibility = !_flipStatsPanelVisibility;
+            flipStatsPanel.DOAnchorPosY(_flipStatsPanelVisibility ? -150 : 650, 0.3f).SetEase(Ease.OutQuint);
         }
     }
 }

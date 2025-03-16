@@ -11,6 +11,7 @@ namespace UpsideDown.Player
     public class StructureCreator : MonoBehaviour
     {
         public static StructureCreator Instance;
+        public bool canPlaceStructure;
         [SerializeField] private GameObject creatorMousePosition;
         [SerializeField] private LayerMask gridLayerMask;
         [SerializeField] private LayerMask edgeLayerMask;
@@ -85,6 +86,7 @@ namespace UpsideDown.Player
         
         public void CancelPlacement()
         {
+            if (!isPlacingStructure) return;
             Destroy(creatorMousePosition.transform.GetChild(0).gameObject);
             isPlacingStructure = false;
             _hoveredGrid = null;
@@ -108,7 +110,7 @@ namespace UpsideDown.Player
 
         public void CreateStructure(StructureScriptableObject structure)
         {
-            if (isPlacingStructure) return;
+            if (isPlacingStructure || !canPlaceStructure) return;
             _structure = structure;
             GameObject structurePrefab = Instantiate(structure.structureUpgrades[0].structurePrefab, creatorMousePosition.transform.position, Quaternion.identity);
             structurePrefab.transform.SetParent(creatorMousePosition.transform);

@@ -62,6 +62,7 @@ namespace UpsideDown.Environment
             if (transform.position is { x: 0, z: 0 })
             {
                 GridManager.Instance.centreGrid.TakeDamage(damage / 2);
+                WaveManager.Instance.EnemyDestroyed(gameObject);
                 Destroy(gameObject);
             }
             transform.LookAt(new Vector3(_coreDestination.x, transform.position.y, _coreDestination.z));

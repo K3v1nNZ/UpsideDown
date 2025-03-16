@@ -1,7 +1,9 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UpsideDown.Environment;
 using Grid = UpsideDown.Environment.Grid;
+using Vector3 = UnityEngine.Vector3;
 
 namespace UpsideDown.Player
 {
@@ -9,6 +11,7 @@ namespace UpsideDown.Player
     // for their camera. It can move, rotate, and zoom the camera.
     public class CameraController : MonoBehaviour
     {
+        public static CameraController Instance;
         [SerializeField] private Transform cameraTransform;
         [SerializeField] private float movementSpeed;
         [SerializeField] private float movementTime;
@@ -21,6 +24,19 @@ namespace UpsideDown.Player
         private Vector3 _newZoom;
         private Quaternion _newRotation;
         private InputActions _inputActions;
+        private bool _canMove = true;
+
+        private void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
 
         private void Start()
         {
@@ -55,8 +71,27 @@ namespace UpsideDown.Player
             }
         }
 
+        public void FlipCam(bool state)
+        {
+            if (state)
+            {
+                _canMove = false;
+                _newPosition = new Vector3(0, 0.75f, 0);
+                transform.DOMove(_newPosition, 0.75f).SetEase(Ease.OutQuint);
+                transform.DORotate(new Vector3(0, 45, 0), 0.75f).SetEase(Ease.OutQuint);
+                //cameraTransform.DOLocalMove(new Vector3(0, 12, -16), 0.75f).SetEase(Ease.OutQuint);
+                cameraTransform.DOLocalMove(new Vector3(0, 20, -23), 0.75f).SetEase(Ease.OutQuint);
+            }
+            else
+            {
+                _canMove = true;
+            }
+        }
+
         private void Movement()
         {
+            if (!_canMove) return;
+            
             // Camera movement
             Vector2 movementInput = _inputActions.Player.Move.ReadValue<Vector2>();
             if (movementInput.y > 0)
