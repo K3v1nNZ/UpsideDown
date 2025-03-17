@@ -197,9 +197,18 @@ namespace UpsideDown.UI
             _waveTimerVisibility = state;
         }
 
-        public void SetFlipStatsInfo()
+        public void ClearFlipStats()
         {
-            
+            foreach (Transform child in flipStatsContainer.transform)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+
+        public void SetFlipStat(string title, string value, FlipStatsObject.ColourState colourState)
+        {
+            GameObject flipStat = Instantiate(flipStatsObject, flipStatsContainer.transform);
+            flipStat.GetComponent<FlipStatsObject>().Setup(title, value, colourState);
         }
 
         public void SetFlipStatsVisibility()

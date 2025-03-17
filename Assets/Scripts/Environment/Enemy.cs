@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,7 +11,11 @@ namespace UpsideDown.Environment
     {
         [SerializeField] private int damage;
         [SerializeField] private float damageRate;
+        [SerializeField] private float speed;
         public float health;
+        private float _speed;
+        private float _health;
+        private int _damage;
         private NavMeshAgent _navMeshAgent;
         private readonly Vector3 _coreDestination = Vector3.zero;
         private NavMeshPath _path;
@@ -18,6 +24,8 @@ namespace UpsideDown.Environment
         private void Start()
         {
             _navMeshAgent = GetComponent<NavMeshAgent>();
+            _navMeshAgent.speed = _speed;
+            _damage = damage;
             _path = new NavMeshPath();
             Recalculate();
         }
@@ -32,10 +40,25 @@ namespace UpsideDown.Environment
             GridManager.OnNavigationUpdate -= Recalculate;
         }
 
+        public void BuffSpeed(float dividedBy)
+        {
+            _speed = speed / dividedBy;
+        }
+
+        public void BuffDamage(float dividedBy)
+        {
+            _damage = (int)Math.Round(damage / dividedBy);
+        }
+
+        public void BuffHealth(float dividedBy)
+        {
+            _health = health / dividedBy;
+        }
+        
         public void TakeDamage(int damage)
         {
-            health -= damage;
-            if (health <= 0)
+            _health -= damage;
+            if (_health <= 0)
             {
                 StopCoroutine(_recalculateCoroutine);
                 WaveManager.Instance.EnemyDestroyed(gameObject);
@@ -61,7 +84,7 @@ namespace UpsideDown.Environment
             Debug.Log("Arrived");
             if (transform.position is { x: 0, z: 0 })
             {
-                GridManager.Instance.centreGrid.TakeDamage(damage / 2);
+                GridManager.Instance.centreGrid.TakeDamage(_damage / 2);
                 WaveManager.Instance.EnemyDestroyed(gameObject);
                 Destroy(gameObject);
             }
@@ -84,7 +107,7 @@ namespace UpsideDown.Environment
                     {
                         yield return new WaitForSeconds(damageRate);
                         if (grid.health <= 0) yield break;
-                        grid.TakeDamage(damage);
+                        grid.TakeDamage(_damage);
                         if (grid.health <= 0) yield break;
                         yield return null;
                     }

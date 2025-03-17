@@ -21,15 +21,12 @@ namespace UpsideDown.UI
             switch (colourState)
             {
                 case ColourState.Positive:
-                    titleText.color = Color.green;
                     valueText.color = Color.green;
                     break;
                 case ColourState.Negative:
-                    titleText.color = Color.red;
                     valueText.color = Color.red;
                     break;
                 case ColourState.Neutral:
-                    titleText.color = Color.white;
                     valueText.color = Color.white;
                     break;
             }

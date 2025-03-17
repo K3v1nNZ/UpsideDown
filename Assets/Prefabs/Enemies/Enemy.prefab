@@ -114,6 +114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   damageRate: 1
+  speed: 1
   health: 100
 --- !u!195 &800788469022143113
 NavMeshAgent:

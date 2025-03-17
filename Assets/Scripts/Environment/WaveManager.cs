@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -23,6 +24,9 @@ namespace UpsideDown.Environment
         private readonly List<GameObject> _aliveEnemies = new();
         private int _wavesPerFlipCounter;
         private bool _isWaveRunning = true;
+        private float _enemySpeedBuff = 1;
+        private float _enemyDamageBuff = 1;
+        private float _enemyHealthBuff = 1;
         public float waveCountdown;
 
         private void Awake()
@@ -35,6 +39,11 @@ namespace UpsideDown.Environment
             {
                 Destroy(gameObject);
             }
+        }
+
+        private void Start()
+        {
+            FlipLogic(true);
         }
 
         private void Update()
@@ -56,6 +65,21 @@ namespace UpsideDown.Environment
             }
         }
 
+        public void EnemySpeedBuff(float dividedBy)
+        {
+            _enemySpeedBuff = dividedBy;
+        }
+
+        public void EnemyDamageBuff(float dividedBy)
+        {
+            _enemyDamageBuff = dividedBy;
+        }
+
+        public void EnemyHealthBuff(float dividedBy)
+        {
+            _enemyHealthBuff = dividedBy;
+        }
+
         public void EnemyDestroyed(GameObject enemy)
         {
             _aliveEnemies.Remove(enemy);
@@ -75,7 +99,7 @@ namespace UpsideDown.Environment
                 yield return new WaitForSeconds(1f);
                 mapToFlip.transform.DORotate(new Vector3(180, 0, 0), 1f);
                 yield return new WaitForSeconds(1f);
-                FlipLogic();
+                FlipLogic(false);
                 mapToFlip.transform.DORotate(new Vector3(360, 0, 0), 1f);
                 yield return new WaitForSeconds(1f);
                 mapToFlip.transform.rotation = Quaternion.identity;
@@ -83,7 +107,6 @@ namespace UpsideDown.Environment
                 UIManager.Instance.SetUIVisibility(true);
                 StructureCreator.Instance.canPlaceStructure = true;
                 yield return new WaitForSeconds(0.25f);
-                UIManager.Instance.SetFlipStatsInfo();
                 UIManager.Instance.SetFlipStatsVisibility();
             }
             _isWaveRunning = true;
@@ -93,11 +116,15 @@ namespace UpsideDown.Environment
                 GameObject enemyToSpawn = enemyObjectsToSpawn[Random.Range(0, enemyObjectsToSpawn.Count)];
                 GameObject enemy = Instantiate(enemyToSpawn, spawnPoints[Random.Range(0, spawnPoints.Count)].position, Quaternion.identity);
                 _aliveEnemies.Add(enemy);
+                Enemy enemyComponent = enemy.GetComponent<Enemy>();
+                enemyComponent.BuffSpeed(_enemySpeedBuff);
+                enemyComponent.BuffDamage(_enemyDamageBuff);
+                enemyComponent.BuffHealth(_enemyHealthBuff);
                 yield return new WaitForSeconds(spawnIntervals);
             }
         }
 
-        private void FlipLogic()
+        private void FlipLogic(bool isStart)
         {
             foreach (GameObject map in maps)
             {
@@ -105,7 +132,10 @@ namespace UpsideDown.Environment
             }
 
             int mapNumber = Random.Range(0, maps.Count);
+            if (isStart) mapNumber = 0;
             maps[mapNumber].SetActive(true);
+            
+            BuffManager.Instance.FlipBuffChange(mapNumber);
         }
     }
 }
