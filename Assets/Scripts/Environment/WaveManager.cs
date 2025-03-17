@@ -28,6 +28,9 @@ namespace UpsideDown.Environment
         private float _enemyDamageBuff = 1;
         private float _enemyHealthBuff = 1;
         public float waveCountdown;
+        
+        public delegate void WaveEnd();
+        public static event WaveEnd OnWaveEnd;
 
         private void Awake()
         {
@@ -56,6 +59,7 @@ namespace UpsideDown.Environment
                     UIManager.Instance.SetWaveCountdownVisibility(false);
                     _isWaveRunning = false;
                     waveCountdown = 20;
+                    OnWaveEnd?.Invoke();
                     StartCoroutine(WaveStart());
                 }
                 else

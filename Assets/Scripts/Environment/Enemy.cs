@@ -40,6 +40,11 @@ namespace UpsideDown.Environment
             GridManager.OnNavigationUpdate -= Recalculate;
         }
 
+        private void OnDestroy()
+        {
+            WaveManager.Instance.EnemyDestroyed(gameObject);
+        }
+
         public void BuffSpeed(float dividedBy)
         {
             _speed = speed / dividedBy;
@@ -61,7 +66,6 @@ namespace UpsideDown.Environment
             if (_health <= 0)
             {
                 StopCoroutine(_recalculateCoroutine);
-                WaveManager.Instance.EnemyDestroyed(gameObject);
                 Destroy(gameObject);
             }
         }
@@ -85,7 +89,6 @@ namespace UpsideDown.Environment
             if (transform.position is { x: 0, z: 0 })
             {
                 GridManager.Instance.centreGrid.TakeDamage(_damage / 2);
-                WaveManager.Instance.EnemyDestroyed(gameObject);
                 Destroy(gameObject);
             }
             transform.LookAt(new Vector3(_coreDestination.x, transform.position.y, _coreDestination.z));

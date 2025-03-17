@@ -23,6 +23,16 @@ namespace UpsideDown.Environment
         private float _generatorTimer;
         private float _turretTimer;
 
+        private void OnEnable()
+        {
+            WaveManager.OnWaveEnd += WaveEnd;
+        }
+
+        private void OnDisable()
+        {
+            WaveManager.OnWaveEnd -= WaveEnd;
+        }
+
         private void Update()
         {
             if (!isOccupied || structureType == StructureScriptableObject.StructureType.Other || structureType == StructureScriptableObject.StructureType.Wall || structureType == StructureScriptableObject.StructureType.Storage) return;
@@ -38,6 +48,11 @@ namespace UpsideDown.Environment
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        private void WaveEnd()
+        {
+            if (!isCentreGrid) health = maxHealth;
         }
 
         private void GeneratorUpdate()
@@ -106,8 +121,7 @@ namespace UpsideDown.Environment
                         {
                             if (pivotChild.CompareTag("TurretPivot"))
                             {
-                                pivotChild.DOLookAt(new Vector3(closestEnemy.transform.position.x, pivotChild.position.y, closestEnemy.transform.position.z), 0.1f).SetEase(Ease.Linear);
-                                //TODO: Shoot Animation
+                                pivotChild.DOLookAt(new Vector3(closestEnemy.transform.position.x, pivotChild.position.y, closestEnemy.transform.position.z), 0.05f).SetEase(Ease.Linear).OnComplete(() => pivotChild.DOShakeScale(0.3f, new Vector3(0, 0, -0.2f)));
                             }
                         }
                     }
@@ -220,10 +234,21 @@ namespace UpsideDown.Environment
         public void TakeDamage(int damage)
         {
             health -= damage;
-            //TODO: Take Damage Animation
+            foreach (Transform child in transform)
+            {
+                if (child.CompareTag("GridModel") || child.CompareTag("EdgeModel"))
+                {
+                    child.DOPunchScale(Vector3.zero, 0.4f, elasticity:0.2f);
+                }
+            }
             if (health <= 0)
             {
                 if (UIManager.Instance.grid == this) UIManager.Instance.ToggleTowerUpgradePanel(false);
+
+                if (isCentreGrid)
+                {
+                    // TODO: Game Loss
+                }
                 DestroyStructure();
             }
         }
