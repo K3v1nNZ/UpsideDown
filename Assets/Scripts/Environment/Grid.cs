@@ -247,7 +247,9 @@ namespace UpsideDown.Environment
 
                 if (isCentreGrid)
                 {
-                    // TODO: Game Loss
+                    UIManager.Instance.SetUIVisibility(false);
+                    StartCoroutine(GridManager.Instance.EndGame());
+                    return;
                 }
                 DestroyStructure();
             }

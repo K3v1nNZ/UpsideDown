@@ -1,3 +1,4 @@
+using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -86,6 +87,16 @@ namespace UpsideDown.Player
             {
                 _canMove = true;
             }
+        }
+
+        public IEnumerator DeadCam()
+        {
+            _canMove = false;
+            transform.DOMove(new Vector3(0, 0.75f, 0), 2f).SetEase(Ease.OutQuad);
+            transform.DORotate(new Vector3(0, 45, 0), 2).SetEase(Ease.OutQuad);
+            cameraTransform.DOLocalMove(new Vector3(0, 1, -1.5f), 2).SetEase(Ease.OutQuad);
+            yield return new WaitForSeconds(2f);
+            cameraTransform.DOLocalMove(new Vector3(0, 20, -23), 0.8f).SetEase(Ease.OutQuint);
         }
 
         private void Movement()

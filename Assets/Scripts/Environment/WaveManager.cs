@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using UnityEngine;
 using UpsideDown.Player;
@@ -51,7 +52,7 @@ namespace UpsideDown.Environment
 
         private void Update()
         {
-            if (_isWaveRunning && _aliveEnemies.Count <= 0)
+            if (_isWaveRunning && _aliveEnemies.Count <= 0 && !GridManager.Instance.isDead)
             {
                 UIManager.Instance.SetWaveCountdownVisibility(true);
                 if (waveCountdown <= 0)
@@ -125,6 +126,15 @@ namespace UpsideDown.Environment
                 enemyComponent.BuffDamage(_enemyDamageBuff);
                 enemyComponent.BuffHealth(_enemyHealthBuff);
                 yield return new WaitForSeconds(spawnIntervals);
+            }
+        }
+
+        public void KillThemAll()
+        {
+            foreach (GameObject enemy in _aliveEnemies.ToList())
+            {
+                _aliveEnemies.Remove(enemy);
+                Destroy(enemy);
             }
         }
 

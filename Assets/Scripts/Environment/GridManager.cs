@@ -1,6 +1,10 @@
 using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 using Unity.AI.Navigation;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+using UpsideDown.Player;
 using UpsideDown.ScriptableObjects;
 using UpsideDown.UI;
 
@@ -13,6 +17,8 @@ namespace UpsideDown.Environment
     {
         public static GridManager Instance;
         [HideInInspector] public Grid centreGrid;
+        [SerializeField] private Volume volume;
+        [SerializeField] private ParticleSystem explosionFX;
         [SerializeField] private int gridWidthX;
         [SerializeField] private int gridWidthZ;
         [SerializeField] private GameObject edgePrefab;
@@ -20,7 +26,9 @@ namespace UpsideDown.Environment
         [SerializeField] private GameObject gridParent;
         [SerializeField] private StructureScriptableObject coreStructure;
         [SerializeField] private NavMeshSurface navMeshSurface;
+        public bool isDead;
         private Grid _selectedGrid;
+        private ColorAdjustments _colorPost;
         
         public delegate void NavigationUpdate();
         public static event NavigationUpdate OnNavigationUpdate;
@@ -41,6 +49,11 @@ namespace UpsideDown.Environment
         {
             CreateGrid();
             navMeshSurface.BuildNavMesh();
+            
+            if (volume.profile.TryGet(out ColorAdjustments tempColorAdjustments))
+            {
+                _colorPost = tempColorAdjustments;
+            }
         }
 
         private void CreateGrid()
@@ -116,6 +129,19 @@ namespace UpsideDown.Environment
             yield return new WaitForSeconds(0.2f);
             navMeshSurface.UpdateNavMesh(navMeshSurface.navMeshData);
             OnNavigationUpdate?.Invoke();
+        }
+
+        public IEnumerator EndGame()
+        {
+            isDead = true;
+            WaveManager.Instance.KillThemAll();
+            StartCoroutine(CameraController.Instance.DeadCam());
+            yield return new WaitForSeconds(2);
+            explosionFX.Play();
+            yield return new WaitForSeconds(0.1f);
+            centreGrid.DestroyStructure();
+            yield return new WaitForSeconds(1f);
+            DOTween.To(() => _colorPost.saturation.value, x => _colorPost.saturation.value = x, -100f, 1f);
         }
     }
 }
