@@ -142,6 +142,8 @@ namespace UpsideDown.Environment
             centreGrid.DestroyStructure();
             yield return new WaitForSeconds(1f);
             DOTween.To(() => _colorPost.saturation.value, x => _colorPost.saturation.value = x, -100f, 1f);
+            yield return new WaitForSeconds(0.75f);
+            UIManager.Instance.ShowGameOverScreen();
         }
     }
 }

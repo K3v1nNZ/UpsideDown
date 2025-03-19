@@ -106,6 +106,7 @@ namespace UpsideDown.Player
             creatorMousePosition.transform.rotation = Quaternion.identity;
             GridManager.Instance.SelectGrid(null);
             _ = UIManager.Instance.PlacementUI(null);
+            StatsManager.Instance.TowerPlaced();
         }
 
         public void CreateStructure(StructureScriptableObject structure)

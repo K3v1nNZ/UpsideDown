@@ -94,6 +94,7 @@ namespace UpsideDown.Environment
         {
             waveNumber++;
             _wavesPerFlipCounter++;
+            StatsManager.Instance.WaveIncrease();
             if (_wavesPerFlipCounter > wavesPerFlip)
             {
                 _wavesPerFlipCounter = 1;
@@ -114,10 +115,29 @@ namespace UpsideDown.Environment
                 yield return new WaitForSeconds(0.25f);
                 UIManager.Instance.SetFlipStatsVisibility();
             }
+
+            if (waveNumber is > 3 and < 7)
+            {
+                spawnIntervals = 2.5f;
+            }
+            else if (waveNumber is > 6 and < 10)
+            {
+                spawnIntervals = 2;
+            }
+            else if (waveNumber > 9)
+            {
+                spawnIntervals = 1.5f;
+            }
+            else
+            {
+                spawnIntervals = 3;
+            }
+            
             _isWaveRunning = true;
             int amountToSpawn = startingEnemyCount + (increasingEnemyCount * waveNumber);
             for (int i = 0; i < amountToSpawn; i++)
             {
+                if (GridManager.Instance.isDead) yield break;
                 GameObject enemyToSpawn = enemyObjectsToSpawn[Random.Range(0, enemyObjectsToSpawn.Count)];
                 GameObject enemy = Instantiate(enemyToSpawn, spawnPoints[Random.Range(0, spawnPoints.Count)].position, Quaternion.identity);
                 _aliveEnemies.Add(enemy);

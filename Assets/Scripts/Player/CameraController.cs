@@ -3,6 +3,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UpsideDown.Environment;
+using UpsideDown.UI;
 using Grid = UpsideDown.Environment.Grid;
 using Vector3 = UnityEngine.Vector3;
 
@@ -45,6 +46,8 @@ namespace UpsideDown.Player
             _newPosition = transform.position;
             _newZoom = cameraTransform.localPosition;
             _newRotation = transform.rotation;
+
+            StartCoroutine(FadeIn());
         }
 
         private void Update()
@@ -97,6 +100,19 @@ namespace UpsideDown.Player
             cameraTransform.DOLocalMove(new Vector3(0, 1, -1.5f), 2).SetEase(Ease.OutQuad);
             yield return new WaitForSeconds(2f);
             cameraTransform.DOLocalMove(new Vector3(0, 20, -23), 0.8f).SetEase(Ease.OutQuint);
+        }
+
+        private IEnumerator FadeIn()
+        {
+            _canMove = false;
+            UIManager.Instance.SetUIVisibility(false);
+            transform.position = new Vector3(0, 0.75f, 0);
+            transform.Rotate(new Vector3(0, 45, 0));
+            cameraTransform.localPosition = new Vector3(0, 20, -23);
+            cameraTransform.DOLocalMove(new Vector3(0, 2, -2.5f), 1f).SetEase(Ease.OutQuint);
+            yield return new WaitForSeconds(2f);
+            _canMove = true;
+            UIManager.Instance.SetUIVisibility(true);
         }
 
         private void Movement()

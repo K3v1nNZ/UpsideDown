@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using UpsideDown.Environment;
@@ -15,6 +16,8 @@ namespace UpsideDown.UI
     public class UIManager : MonoBehaviour
     {
         public static UIManager Instance;
+        [SerializeField] private CanvasGroup whiteFade;
+        [SerializeField] private CanvasGroup blackFade;
         [SerializeField] private CanvasGroup mainCanvasGroup;
         [SerializeField] private CanvasGroup towerPurchase;
         [SerializeField] private Color tabSelectedColor;
@@ -46,6 +49,11 @@ namespace UpsideDown.UI
         [SerializeField] private RectTransform flipStatsPanel;
         [SerializeField] private GameObject flipStatsContainer;
         [SerializeField] private GameObject flipStatsObject;
+        [SerializeField] private CanvasGroup gameOverPanel;
+        [SerializeField] private TMP_Text timeSurvivedText;
+        [SerializeField] private TMP_Text wavesSurvivedText;
+        [SerializeField] private TMP_Text enemiesKilledText;
+        [SerializeField] private TMP_Text towersPlacedText;
         [HideInInspector] public Grid grid;
         private bool _waveTimerVisibility;
         private bool _flipStatsPanelVisibility;
@@ -60,6 +68,11 @@ namespace UpsideDown.UI
             {
                 Destroy(gameObject);
             }
+        }
+
+        private void Start()
+        {
+            whiteFade.DOFade(0, 0.5f);
         }
 
         private void Update()
@@ -215,6 +228,27 @@ namespace UpsideDown.UI
         {
             _flipStatsPanelVisibility = !_flipStatsPanelVisibility;
             flipStatsPanel.DOAnchorPosY(_flipStatsPanelVisibility ? -150 : 650, 0.3f).SetEase(Ease.OutQuint);
+        }
+
+        public void ShowGameOverScreen()
+        {
+            GameOverStatsScriptableObject so = StatsManager.Instance.GetStats();
+            timeSurvivedText.text = so.TimeSurvived.ToString(@"hh\:mm\:ss");
+            wavesSurvivedText.text = so.wavesSurvived.ToString();
+            enemiesKilledText.text = so.enemiesKilled.ToString();
+            towersPlacedText.text = so.towersPlaced.ToString();
+            gameOverPanel.DOFade(1f, 0.3f).OnComplete((() =>
+            {
+                gameOverPanel.interactable = true;
+                gameOverPanel.blocksRaycasts = true;
+            }));
+        }
+
+        public void MainMenuButton()
+        {
+            AsyncOperation sceneAsync = SceneManager.LoadSceneAsync("MainMenu");
+            sceneAsync.allowSceneActivation = false;
+            blackFade.DOFade(1, 0.5f).OnComplete(() => sceneAsync.allowSceneActivation = true); 
         }
     }
 }

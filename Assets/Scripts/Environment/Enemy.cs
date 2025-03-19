@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
+using UpsideDown.Player;
 
 namespace UpsideDown.Environment
 {
@@ -43,6 +44,7 @@ namespace UpsideDown.Environment
         private void OnDestroy()
         {
             WaveManager.Instance.EnemyDestroyed(gameObject);
+            ResourcesManager.Instance.playerResources.Add(new GameResources(1, 1, 1));
         }
 
         public void BuffSpeed(float dividedBy)
@@ -65,6 +67,7 @@ namespace UpsideDown.Environment
             _health -= damage;
             if (_health <= 0)
             {
+                StatsManager.Instance.EnemyKilled();
                 StopCoroutine(_recalculateCoroutine);
                 Destroy(gameObject);
             }
