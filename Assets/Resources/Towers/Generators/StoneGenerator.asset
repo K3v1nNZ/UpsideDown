@@ -15,7 +15,52 @@ MonoBehaviour:
   structureName: Stone Generator
   structureIcon: {fileID: 0}
   structureUpgrades:
-  - structurePrefab: {fileID: 4221919296102308759, guid: ffe2ab725d9b5734c8c18d05c3f78819, type: 3}
+  - structurePrefab: {fileID: 7603754970939184010, guid: 8d1f7623c0cce4b4d9846eac3185bb4e, type: 3}
+    upgradeCost:
+      stone: 2
+      metal: 2
+      power: 2
+  - structurePrefab: {fileID: 768038509951964651, guid: 35b92d96db0b4954a884dacf12bcf27a, type: 3}
+    upgradeCost:
+      stone: 2
+      metal: 2
+      power: 2
+  - structurePrefab: {fileID: 106126455640487589, guid: 81836e6b2d359e64b8cdaa566d3b5145, type: 3}
+    upgradeCost:
+      stone: 2
+      metal: 2
+      power: 2
+  - structurePrefab: {fileID: 8044663664854289560, guid: 64b20c5348a1b594582bcc57b90b552f, type: 3}
+    upgradeCost:
+      stone: 2
+      metal: 2
+      power: 2
+  - structurePrefab: {fileID: 60675401648594020, guid: 162d79af88f775f409106e4bc55cd7d4, type: 3}
+    upgradeCost:
+      stone: 2
+      metal: 2
+      power: 2
+  - structurePrefab: {fileID: 5020569916681286765, guid: 71fcee9ec02fd5b4487fa53d4335c3b5, type: 3}
+    upgradeCost:
+      stone: 2
+      metal: 2
+      power: 2
+  - structurePrefab: {fileID: 5860766051669754991, guid: e90bb00106b09cd438e161243832c145, type: 3}
+    upgradeCost:
+      stone: 2
+      metal: 2
+      power: 2
+  - structurePrefab: {fileID: 7340270986355936809, guid: ac0929de11ab8a94899e5502d3d04efe, type: 3}
+    upgradeCost:
+      stone: 2
+      metal: 2
+      power: 2
+  - structurePrefab: {fileID: 9043994145101273424, guid: ab3894b0b2cb01a49b8b678f05b68311, type: 3}
+    upgradeCost:
+      stone: 2
+      metal: 2
+      power: 2
+  - structurePrefab: {fileID: 5994030791233303748, guid: e3682b6a7e1df524f9fb0643501654b6, type: 3}
     upgradeCost:
       stone: 2
       metal: 2
@@ -23,4 +68,4 @@ MonoBehaviour:
   structureType: 1
   health: 100
   resourceType: 0
-  upgradeGenerationAmounts: 02000000
+  upgradeGenerationAmounts: 02000000020000000200000002000000020000000200000002000000020000000200000002000000

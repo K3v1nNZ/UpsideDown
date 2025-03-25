@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c52908d830b74556892c95b4b6faaff1, type: 3}
+  m_Name: Turret 2
+  m_EditorClassIdentifier: 
+  structureName: Turret 2
+  structureIcon: {fileID: 0}
+  structureUpgrades:
+  - structurePrefab: {fileID: 7189158840609846423, guid: 2e80dcffa71901f40b80f8dee31dac67, type: 3}
+    upgradeCost:
+      stone: 2
+      metal: 2
+      power: 1
+  structureType: 2
+  health: 100
+  turretRange: 2
+  upgradeFireAmount:
+  - 2
+  upgradeDamageAmount: 16000000

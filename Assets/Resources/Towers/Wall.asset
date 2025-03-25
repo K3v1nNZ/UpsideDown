@@ -15,10 +15,30 @@ MonoBehaviour:
   structureName: Wall
   structureIcon: {fileID: 2800000, guid: 37e93113453ac0d46863acd4090899c8, type: 3}
   structureUpgrades:
-  - structurePrefab: {fileID: 142093339426611749, guid: 070de4cd04b4eb3448b1a3194ee709df, type: 3}
+  - structurePrefab: {fileID: 921913822085676134, guid: 7d9a997a24735a247a9694980432fa34, type: 3}
+    upgradeCost:
+      stone: 2
+      metal: 2
+      power: 2
+  - structurePrefab: {fileID: 6350665442953737556, guid: ba3b9153c19daed4698ae95015d8e8cb, type: 3}
+    upgradeCost:
+      stone: 2
+      metal: 2
+      power: 2
+  - structurePrefab: {fileID: 7620038140711077728, guid: 94944fef7f4faf14ea526c429dad6ac2, type: 3}
+    upgradeCost:
+      stone: 2
+      metal: 2
+      power: 2
+  - structurePrefab: {fileID: 4128033645999791743, guid: 3a25bed2ca3b9f34e953b30f5a020398, type: 3}
+    upgradeCost:
+      stone: 2
+      metal: 2
+      power: 2
+  - structurePrefab: {fileID: 5540315855398732860, guid: f6c38f421ed1e8d4a91a4e9bd78e56f4, type: 3}
     upgradeCost:
       stone: 2
       metal: 2
       power: 2
   structureType: 3
-  wallHealth: 32000000
+  wallHealth: 3200000032000000320000003200000032000000

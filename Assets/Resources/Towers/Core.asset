@@ -13,6 +13,23 @@ MonoBehaviour:
   m_Name: Core
   m_EditorClassIdentifier: 
   structureName: Core
+  poopy:
+  - name: Anthony
+    message: you are poo poo head
+    texture: {fileID: 0}
+    textureTalking: {fileID: 0}
+  - name: Taiku
+    message: Nuh uh
+    texture: {fileID: 0}
+    textureTalking: {fileID: 0}
+  - name: Taiku
+    message: You are a poo poo
+    texture: {fileID: 0}
+    textureTalking: {fileID: 0}
+  - name: Fraize
+    message: Yeah you dingus
+    texture: {fileID: 0}
+    textureTalking: {fileID: 0}
   structureIcon: {fileID: 2800000, guid: dffef66376be4fa480fb02b19edbe903, type: 3}
   structureUpgrades:
   - structurePrefab: {fileID: 6071246817652699246, guid: 1206f106a8089db468b3b3dfe0486336, type: 3}

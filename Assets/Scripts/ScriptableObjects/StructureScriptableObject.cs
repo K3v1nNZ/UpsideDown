@@ -25,4 +25,13 @@ namespace UpsideDown.ScriptableObjects
         
         public virtual void StructureStop(int level) {}
     }
+	
+	[System.Serializable]
+	public struct Dialogue
+	{
+		public string name;
+		public string message;
+		public Texture2D texture;
+		public Texture2D textureTalking;
+	}
 }
