@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MetalStorage
   m_EditorClassIdentifier: 
   structureName: Metal Storage
-  structureIcon: {fileID: 2800000, guid: ec2f01df0bb1bfe459b5562a9e71c8d4, type: 3}
+  structureIcon: {fileID: 2800000, guid: 1ffb585a70ad15e409fd49f3193747cf, type: 3}
   structureUpgrades:
   - structurePrefab: {fileID: 331001976023522913, guid: bc10b4c4e9d10fc41974be2d0fc0a828, type: 3}
     upgradeCost:

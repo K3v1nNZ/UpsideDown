@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Wall
   m_EditorClassIdentifier: 
   structureName: Wall
-  structureIcon: {fileID: 2800000, guid: 37e93113453ac0d46863acd4090899c8, type: 3}
+  structureIcon: {fileID: 2800000, guid: 982955afd651778489a998df32b6b9ed, type: 3}
   structureUpgrades:
   - structurePrefab: {fileID: 921913822085676134, guid: 7d9a997a24735a247a9694980432fa34, type: 3}
     upgradeCost:

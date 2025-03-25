@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StoneStorage
   m_EditorClassIdentifier: 
   structureName: Stone Storage
-  structureIcon: {fileID: 2800000, guid: ec2f01df0bb1bfe459b5562a9e71c8d4, type: 3}
+  structureIcon: {fileID: 2800000, guid: 3926e69a8327a9e458c346e3c91fb38a, type: 3}
   structureUpgrades:
   - structurePrefab: {fileID: 1756097085414993761, guid: 14e315d8daf8605499be3ffb907e79e4, type: 3}
     upgradeCost:

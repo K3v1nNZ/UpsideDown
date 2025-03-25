@@ -13,59 +13,59 @@ MonoBehaviour:
   m_Name: MetalGenerator
   m_EditorClassIdentifier: 
   structureName: Metal Generator
-  structureIcon: {fileID: 0}
+  structureIcon: {fileID: 2800000, guid: 13fa99bbc5d24794cbe91033eeeeebe0, type: 3}
   structureUpgrades:
   - structurePrefab: {fileID: 6552648615434604319, guid: 2a91d1b3748c2274482c5774e019f2d3, type: 3}
     upgradeCost:
-      stone: 2
-      metal: 2
-      power: 2
+      stone: 0
+      metal: 1
+      power: 0
   - structurePrefab: {fileID: 7460273302238041532, guid: 8fda4afb34024e7448d198dfa481aa9c, type: 3}
     upgradeCost:
       stone: 2
-      metal: 2
-      power: 2
+      metal: 5
+      power: 0
   - structurePrefab: {fileID: 3748911845094062508, guid: ceba4ceb527e5df45bfe71f773a3f479, type: 3}
     upgradeCost:
-      stone: 2
-      metal: 2
-      power: 2
+      stone: 5
+      metal: 10
+      power: 0
   - structurePrefab: {fileID: 1985622069173070217, guid: bf7bab2a76c37e440963b61002888cd9, type: 3}
     upgradeCost:
-      stone: 2
-      metal: 2
-      power: 2
+      stone: 15
+      metal: 20
+      power: 0
   - structurePrefab: {fileID: 3552869923391144882, guid: 25b2ba80332792f4f9a695001ca63a70, type: 3}
     upgradeCost:
-      stone: 2
-      metal: 2
-      power: 2
+      stone: 20
+      metal: 40
+      power: 0
   - structurePrefab: {fileID: 2723264995601055285, guid: eb909c7de88458a48869c20bc89aa6df, type: 3}
     upgradeCost:
-      stone: 2
-      metal: 2
+      stone: 40
+      metal: 90
       power: 2
   - structurePrefab: {fileID: 6894110411709853633, guid: ccccce0260cbd6f449556e030114227d, type: 3}
     upgradeCost:
-      stone: 2
-      metal: 2
-      power: 2
+      stone: 90
+      metal: 150
+      power: 10
   - structurePrefab: {fileID: 4477728863515195515, guid: d2fe286a7a3d95244aa9da22c008b57d, type: 3}
     upgradeCost:
-      stone: 2
-      metal: 2
-      power: 2
+      stone: 150
+      metal: 300
+      power: 40
   - structurePrefab: {fileID: 516217523213789544, guid: a65ce4b957583c94099e16e200103c81, type: 3}
     upgradeCost:
-      stone: 2
-      metal: 2
-      power: 2
+      stone: 300
+      metal: 400
+      power: 90
   - structurePrefab: {fileID: 8646746526645162418, guid: 45c284cc5d5eca747b8527440d54dcfc, type: 3}
     upgradeCost:
-      stone: 2
-      metal: 2
-      power: 2
+      stone: 500
+      metal: 500
+      power: 400
   structureType: 1
   health: 100
   resourceType: 1
-  upgradeGenerationAmounts: 02000000020000000200000002000000020000000200000002000000020000000200000002000000
+  upgradeGenerationAmounts: 010000000200000004000000050000000800000014000000190000001e0000002800000032000000

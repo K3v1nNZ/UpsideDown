@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Turret 1
   m_EditorClassIdentifier: 
   structureName: Turret 1
-  structureIcon: {fileID: 0}
+  structureIcon: {fileID: 2800000, guid: a7e8432a7b5362b4bbe693201f4bf2eb, type: 3}
   structureUpgrades:
   - structurePrefab: {fileID: 8128808271768045187, guid: 261ff4a65a8006d4b87dd3afc4412620, type: 3}
     upgradeCost:
