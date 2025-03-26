@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 800788469022143112}
   - component: {fileID: 800788469022143113}
   m_Layer: 9
-  m_Name: Enemy
+  m_Name: EnemyHigh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -116,7 +116,7 @@ MonoBehaviour:
   damage: 10
   damageRate: 1
   speed: 1
-  health: 100
+  health: 150
 --- !u!195 &800788469022143113
 NavMeshAgent:
   m_ObjectHideFlags: 0

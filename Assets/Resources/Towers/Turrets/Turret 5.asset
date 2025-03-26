@@ -17,12 +17,12 @@ MonoBehaviour:
   structureUpgrades:
   - structurePrefab: {fileID: 7363876230287217989, guid: 478f4f094bcb5d243924e545741edd54, type: 3}
     upgradeCost:
-      stone: 2
-      metal: 2
-      power: 1
+      stone: 30
+      metal: 30
+      power: 30
   structureType: 2
   health: 100
-  turretRange: 2
+  turretRange: 6
   upgradeFireAmount:
-  - 2
-  upgradeDamageAmount: 16000000
+  - 5
+  upgradeDamageAmount: 3c000000

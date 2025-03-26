@@ -22,23 +22,23 @@ MonoBehaviour:
       power: 2
   - structurePrefab: {fileID: 6350665442953737556, guid: ba3b9153c19daed4698ae95015d8e8cb, type: 3}
     upgradeCost:
-      stone: 2
-      metal: 2
-      power: 2
+      stone: 20
+      metal: 20
+      power: 20
   - structurePrefab: {fileID: 7620038140711077728, guid: 94944fef7f4faf14ea526c429dad6ac2, type: 3}
     upgradeCost:
-      stone: 2
-      metal: 2
-      power: 2
+      stone: 40
+      metal: 40
+      power: 40
   - structurePrefab: {fileID: 4128033645999791743, guid: 3a25bed2ca3b9f34e953b30f5a020398, type: 3}
     upgradeCost:
-      stone: 2
-      metal: 2
-      power: 2
+      stone: 60
+      metal: 60
+      power: 60
   - structurePrefab: {fileID: 5540315855398732860, guid: f6c38f421ed1e8d4a91a4e9bd78e56f4, type: 3}
     upgradeCost:
-      stone: 2
-      metal: 2
-      power: 2
+      stone: 80
+      metal: 80
+      power: 80
   structureType: 3
-  wallHealth: 3200000032000000320000003200000032000000
+  wallHealth: 14000000280000003c0000005000000064000000

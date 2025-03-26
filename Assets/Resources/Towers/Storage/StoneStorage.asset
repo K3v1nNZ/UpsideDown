@@ -17,30 +17,30 @@ MonoBehaviour:
   structureUpgrades:
   - structurePrefab: {fileID: 1756097085414993761, guid: 14e315d8daf8605499be3ffb907e79e4, type: 3}
     upgradeCost:
-      stone: 2
-      metal: 2
-      power: 2
+      stone: 10
+      metal: 0
+      power: 0
   - structurePrefab: {fileID: 7278697332704297304, guid: 2ba312639ad01064a801bdc9e19c0549, type: 3}
     upgradeCost:
-      stone: 2
-      metal: 2
-      power: 2
+      stone: 60
+      metal: 0
+      power: 0
   - structurePrefab: {fileID: 6383773240710459925, guid: 0cb10c2333906c64b81344392ca1de60, type: 3}
     upgradeCost:
-      stone: 2
-      metal: 2
-      power: 2
+      stone: 100
+      metal: 0
+      power: 0
   - structurePrefab: {fileID: 4019300046361501128, guid: 7dcccc72a4eac66499ea72c6606fbf50, type: 3}
     upgradeCost:
-      stone: 2
-      metal: 2
-      power: 2
+      stone: 140
+      metal: 0
+      power: 0
   - structurePrefab: {fileID: 7554350829740266922, guid: 496d1585c12d83545a1dc8a096232215, type: 3}
     upgradeCost:
-      stone: 2
-      metal: 2
-      power: 2
+      stone: 200
+      metal: 0
+      power: 0
   structureType: 0
   health: 100
   resourceType: 0
-  upgradeStorageAmounts: 0a00000014000000140000001400000014000000
+  upgradeStorageAmounts: 0a0000001e000000320000004600000064000000

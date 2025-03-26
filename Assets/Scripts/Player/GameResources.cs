@@ -26,9 +26,9 @@ namespace UpsideDown.Player
             this.stone = stone;
             this.metal = metal;
             this.power = power;
-            StoneLimit = 20;
-            MetalLimit = 20;
-            PowerLimit = 20;
+            StoneLimit = 50;
+            MetalLimit = 50;
+            PowerLimit = 50;
         }
         
         public bool CanAfford(GameResources cost)

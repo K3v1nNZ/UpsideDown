@@ -5760,9 +5760,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerResources:
-    stone: 20
-    metal: 20
-    power: 20
+    stone: 50
+    metal: 50
+    power: 50
 --- !u!4 &962121012
 Transform:
   m_ObjectHideFlags: 0
@@ -6060,6 +6060,8 @@ MonoBehaviour:
   wavesPerFlip: 3
   enemyObjectsToSpawn:
   - {fileID: 800788469022143111, guid: bcbf79c5d6655b54aa07545bb376226f, type: 3}
+  enemyObjectToSpawnHigh:
+  - {fileID: 800788469022143111, guid: 0305c0fc3061d4341bf573eadde98c7b, type: 3}
   spawnPoints:
   - {fileID: 485291294}
   - {fileID: 1506517069}

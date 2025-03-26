@@ -17,6 +17,7 @@ namespace UpsideDown.Environment
         [SerializeField] private GameObject mapToFlip;
         [SerializeField] private int wavesPerFlip;
         [SerializeField] private List<GameObject> enemyObjectsToSpawn = new();
+        [SerializeField] private List<GameObject> enemyObjectToSpawnHigh = new();
         [SerializeField] private List<Transform> spawnPoints = new();
         [SerializeField] private float spawnIntervals;
         [SerializeField] private int startingEnemyCount;
@@ -138,7 +139,15 @@ namespace UpsideDown.Environment
             for (int i = 0; i < amountToSpawn; i++)
             {
                 if (GridManager.Instance.isDead) yield break;
-                GameObject enemyToSpawn = enemyObjectsToSpawn[Random.Range(0, enemyObjectsToSpawn.Count)];
+                GameObject enemyToSpawn;
+                if (waveNumber >= 3)
+                {
+                    enemyToSpawn = enemyObjectToSpawnHigh[Random.Range(0, enemyObjectsToSpawn.Count)];
+                }
+                else
+                {
+                    enemyToSpawn = enemyObjectsToSpawn[Random.Range(0, enemyObjectsToSpawn.Count)];
+                }
                 GameObject enemy = Instantiate(enemyToSpawn, spawnPoints[Random.Range(0, spawnPoints.Count)].position, Quaternion.identity);
                 _aliveEnemies.Add(enemy);
                 Enemy enemyComponent = enemy.GetComponent<Enemy>();
