@@ -48,6 +48,34 @@ MonoBehaviour:
     enabled: 1
   platformName: Windows
   targetGroup: 1
+--- !u!114 &-3210315869720480517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0acaf75cc66fc934ea46bf602fc7c245, type: 3}
+  m_Name: WebGL
+  m_EditorClassIdentifier: 
+  enabled: 1
+  distributionList:
+    distributions: []
+  targets:
+  - type: 20
+    name: Player
+    enabled: 1
+    binaryNameFormat: '{0}'
+    subtarget: 0
+  variants: []
+  scriptingBackends:
+  - scriptingImplementation: 1
+    name: IL2CPP
+    enabled: 1
+  platformName: WebGL
+  targetGroup: 13
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67,8 +95,8 @@ MonoBehaviour:
     constantsFileLocation: Assets\SuperUnityBuild
   _productParameters:
     buildCounter: 0
-    buildVersion: 0.0.1.1
-    versionTemplate: 0.0.1.1
+    buildVersion: 1.0.0.25
+    versionTemplate: 1.0.0.25
     autoGenerate: 0
     syncWithPlayerSettings: 1
   _releaseTypeList:
@@ -83,6 +111,8 @@ MonoBehaviour:
       customDefines: 
       sceneList:
         releaseScenes:
+        - fileGUID: 541d02593880cf3408b197c55e488260
+          sceneActive: 1
         - fileGUID: 9fc0d4010bbf28b4594072e72b8655ab
           sceneActive: 1
     - typeName: Shipping
@@ -91,23 +121,26 @@ MonoBehaviour:
       productName: UpsideDown
       syncAppNameWithProduct: 1
       appBuildName: UpsideDown
-      buildOptions: 1
+      buildOptions: 0
       customDefines: 
       sceneList:
         releaseScenes:
+        - fileGUID: 541d02593880cf3408b197c55e488260
+          sceneActive: 1
         - fileGUID: 9fc0d4010bbf28b4594072e72b8655ab
           sceneActive: 1
   _platformList:
     platforms:
     - {fileID: -4546927203325772067}
     - {fileID: 1474986710601063885}
+    - {fileID: -3210315869720480517}
   _projectConfigurations:
     configSet:
-      _Buckets: 0d000000ffffffffffffffff03000000ffffffffffffffff070000000a000000ffffffffffffffff0b0000000800000002000000ffffffffffffffff0c000000ffffffff
-      _HashCodes: 7056ea7c5b74c82f41751441939d654ad09ff0105c441e260d4e993437e72a23902e432be2c99f0712cde024ab2d3067bf5fa737e030f65e000000000000000000000000
-      _Next: ffffffff0000000001000000ffffffffffffffffffffffff05000000ffffffff04000000ffffffff06000000ffffffff09000000ffffffff000000000000000000000000
-      _Count: 14
-      _Version: 14
+      _Buckets: 12000000ffffffffffffffff0d000000ffffffffffffffffffffffffffffffff10000000ffffffffffffffff09000000ffffffffffffffff0c000000130000000a000000070000000e000000ffffffff0500000006000000ffffffffffffffffffffffffffffffff02000000ffffffffffffffffffffffff03000000ffffffffffffffffffffffffffffffff0f000000ffffffff
+      _HashCodes: 7056ea7c5b74c82f41751441939d654ad09ff0105c441e2620de535739f6d32775cc3a660d4e993437e72a23902e432be2c99f0712cde024ab2d3067bf5fa737951d7d5dda1759351e9b2e66e030f65e0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+      _Next: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0800000004000000ffffffffffffffff0b00000000000000ffffffffffffffffffffffff11000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+      _Count: 20
+      _Version: 20
       _FreeList: -1
       _FreeCount: 0
       _Keys:
@@ -117,6 +150,9 @@ MonoBehaviour:
       - Debug/Linux/Player/IL2CPP
       - Debug/Linux/Player
       - Debug/Linux
+      - Debug/WebGL/Player/IL2CPP
+      - Debug/WebGL/Player
+      - Debug/WebGL
       - Debug
       - Shipping/Windows/Player (Intel 64-bit,App)/IL2CPP
       - Shipping/Windows/Player (Intel 64-bit,App)
@@ -124,12 +160,29 @@ MonoBehaviour:
       - Shipping/Linux/Player/IL2CPP
       - Shipping/Linux/Player
       - Shipping/Linux
+      - Shipping/WebGL/Player/IL2CPP
+      - Shipping/WebGL/Player
+      - Shipping/WebGL
       - Shipping
       - 
       - 
       - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
       _Values:
-      - enabled: 1
+      - enabled: 0
         childKeys: []
       - enabled: 1
         childKeys:
@@ -137,7 +190,7 @@ MonoBehaviour:
       - enabled: 1
         childKeys:
         - Debug/Windows/Player (Intel 64-bit,App)
-      - enabled: 1
+      - enabled: 0
         childKeys: []
       - enabled: 1
         childKeys:
@@ -145,11 +198,20 @@ MonoBehaviour:
       - enabled: 1
         childKeys:
         - Debug/Linux/Player
+      - enabled: 0
+        childKeys: []
+      - enabled: 1
+        childKeys:
+        - Debug/WebGL/Player/IL2CPP
+      - enabled: 1
+        childKeys:
+        - Debug/WebGL/Player
       - enabled: 1
         childKeys:
         - Debug/Windows
         - Debug/Linux
-      - enabled: 0
+        - Debug/WebGL
+      - enabled: 1
         childKeys: []
       - enabled: 1
         childKeys:
@@ -157,7 +219,7 @@ MonoBehaviour:
       - enabled: 1
         childKeys:
         - Shipping/Windows/Player (Intel 64-bit,App)
-      - enabled: 0
+      - enabled: 1
         childKeys: []
       - enabled: 1
         childKeys:
@@ -166,9 +228,46 @@ MonoBehaviour:
         childKeys:
         - Shipping/Linux/Player
       - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys:
+        - Shipping/WebGL/Player/IL2CPP
+      - enabled: 1
+        childKeys:
+        - Shipping/WebGL/Player
+      - enabled: 1
         childKeys:
         - Shipping/Windows
         - Shipping/Linux
+        - Shipping/WebGL
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys: []
       - enabled: 1
         childKeys: []
       - enabled: 1

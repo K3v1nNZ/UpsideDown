@@ -2886,7 +2886,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Title
+  m_text: World Drift
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6f72925e1ea4baa48999d6e9a2e0692b, type: 2}
   m_sharedMaterial: {fileID: -1502473841591981550, guid: 6f72925e1ea4baa48999d6e9a2e0692b, type: 2}
